@@ -3,6 +3,9 @@ import { AuthService } from './auth.service';
 import { HttpParams, HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { AccessToken } from '../models/access-token';
+
+import 'rxjs/Rx';
 
 @Injectable()
 export class EveapiService {
@@ -21,12 +24,12 @@ export class EveapiService {
     );
   }
 
-  token() {
+  token(): Observable<AccessToken> {
     //return this.authService.getCode();
     // let httpHeaders = new HttpHeaders();
     // httpHeaders.set("Authorization", "Bearer " + this.notClientIDAndSecret);
 
-    return this.http.post("http://localhost:4201/api/token", {
+    return this.http.post<AccessToken>("http://localhost:4201/api/token", {
       "code": this.authService.getCode()
     });
   }

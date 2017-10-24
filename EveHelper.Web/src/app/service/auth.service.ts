@@ -14,7 +14,11 @@ export class AuthService {
 
   authorize(){
     console.log(this.scopes);
-    var completeLoginUrl = `https://${this.loginUrl}/oauth/authorize?response_type=${this.responseType}&redirect_uri=${this.callbackUrl}&client_id=${this.clientId}&scope=${this.scopes}`;
+    var completeLoginUrl = `https://${this.loginUrl}/oauth/authorize?\
+    response_type=${this.responseType}\
+    &redirect_uri=${this.callbackUrl}\
+    &client_id=${this.clientId}\
+    &scope=${this.scopes}`;
     window.location.href = completeLoginUrl;
   }
 

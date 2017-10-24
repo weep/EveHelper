@@ -41,7 +41,7 @@ namespace EveHelper.API.Controllers
                             "Basic",
                             Convert.ToBase64String(
                                 System.Text.ASCIIEncoding.ASCII.GetBytes(
-                                    string.Format("{0}:{1}", "client", "secret"))));
+                                    string.Format("{0}:{1}", "clientid", "secret"))));
 
                     var json = JsonConvert.SerializeObject(new
                     {

@@ -10,8 +10,8 @@ import { EveapiService } from '../service/eveapi.service';
 export class HomeComponent implements OnInit {
   private account;
 
-  constructor(private eas: EveapiService) {
-    this.eas.token().subscribe((data) => {
+  constructor(private eveapiService: EveapiService) {
+    this.eveapiService.token().subscribe((data) => {
       this.account = data;
     });
   }
