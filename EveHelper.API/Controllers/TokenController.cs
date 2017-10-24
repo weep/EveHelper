@@ -20,15 +20,22 @@ namespace EveHelper.API.Controllers
 
             using (var httpClient = new HttpClient())
             {
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
                 httpClient.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue(
                         "Basic",
                         Convert.ToBase64String(
                             System.Text.ASCIIEncoding.ASCII.GetBytes(
-                                string.Format("{0}:{1}", "clientid", "secret"))));
-                var data = new { code = model.Code, grant_type = "authorization_code" };
+                                string.Format("{0}:{1}", "clientId", "secret"))));
 
-                var response = httpClient.PostAsync(url, new StringContent(JsonConvert.SerializeObject(data.ToString()), Encoding.UTF8,"application/json")).Result;
+                var json = JsonConvert.SerializeObject(new
+                {
+                    grant_type = "authorization_code",
+                    code = model.Code
+                });
+
+                var response = httpClient.PostAsync(url, new StringContent(json, Encoding.UTF8, "application/json")).Result;
                 var responseString = response.Content.ReadAsStringAsync();
             }
         }
