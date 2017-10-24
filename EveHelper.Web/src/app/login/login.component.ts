@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,11 +10,8 @@ export class LoginComponent implements OnInit {
   private vCode: string;
   private keyId: string;
 
-  constructor() {
-    var authString = window.localStorage.getItem("auth");
-    console.log(authString);
-    var auth = JSON.parse(authString) || {};
-    console.log(auth);
+  constructor(private authSerivce: AuthService) {
+    var auth = this.authSerivce.get();
     this.vCode = auth.vCode;
     this.keyId = auth.keyId;
   }
@@ -22,16 +20,7 @@ export class LoginComponent implements OnInit {
   }
 
   saveCode() {
-    console.log(this);
-
-    var auth = {
-      "vCode": this.vCode,
-      "keyId": this.keyId
-    };
-    var authString = JSON.stringify(auth);
-    console.log(auth, authString);
-    window.localStorage.setItem("auth", authString);
-    console.log("saved");
+    this.authSerivce.save(this.keyId, this.vCode);
   }
 
 }

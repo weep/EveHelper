@@ -6,6 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { AuthService } from './service/auth.service';
+import { EveapiService } from './service/eveapi.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,7 @@ import { HomeComponent } from './home/home.component';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
+  providers: [EveapiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
