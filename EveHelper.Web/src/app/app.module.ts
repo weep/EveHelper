@@ -8,19 +8,23 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AuthService } from './service/auth.service';
 import { EveapiService } from './service/eveapi.service';
+import { HttpClientModule } from '@angular/common/http';
+import { CallbackComponent } from './login/callback/callback.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    CallbackComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [EveapiService],
+  providers: [AuthService, EveapiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

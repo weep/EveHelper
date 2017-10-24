@@ -4,23 +4,28 @@ import { AuthService } from '../service/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [AuthService]
 })
 export class LoginComponent implements OnInit {
-  private vCode: string;
-  private keyId: string;
+  private code: string;
 
   constructor(private authSerivce: AuthService) {
-    var auth = this.authSerivce.get();
-    this.vCode = auth.vCode;
-    this.keyId = auth.keyId;
+    this.code = this.authSerivce.getCode();
   }
 
   ngOnInit() {
+    if (this.authSerivce.isAuthorized() == false) {
+      this.authorize();
+    }
   }
 
-  saveCode() {
-    this.authSerivce.save(this.keyId, this.vCode);
+  authorize() {
+    this.authSerivce.authorize();
+  }
+
+  logout() {
+    this.authSerivce.setCode("");
   }
 
 }
