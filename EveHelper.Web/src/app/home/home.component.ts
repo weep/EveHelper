@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
   private account;
 
   constructor(private eas: EveapiService) {
-    this.account = eas.characters();
+    this.account = this.eas.token();
   }
 
   ngOnInit() {
