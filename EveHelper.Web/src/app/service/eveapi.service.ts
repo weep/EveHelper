@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { HttpParams, HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class EveapiService {
@@ -21,16 +22,13 @@ export class EveapiService {
   }
 
   token() {
-    return this.authService.getCode();
+    //return this.authService.getCode();
     // let httpHeaders = new HttpHeaders();
     // httpHeaders.set("Authorization", "Bearer " + this.notClientIDAndSecret);
 
-    // this.http.post("https://login.eveonline.com/oauth/token", {
-    //   "grant_type": "authorization_code",
-    //   "code": this.authService.getCode()
-    // }, { headers: httpHeaders }).subscribe((response) => {
-    //   console.log(response);
-    // });
+    return this.http.post("http://localhost:4201/api/token", {
+      "code": this.authService.getCode()
+    });
   }
 
   test() {

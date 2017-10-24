@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import { URLSearchParams } from "@angular/http";
 
@@ -11,18 +11,18 @@ import { URLSearchParams } from "@angular/http";
 export class CallbackComponent implements OnInit {
   private status = "loading";
 
-  constructor(private activatedRoute: ActivatedRoute, private as: AuthService) {
+  constructor(private activatedRoute: ActivatedRoute, private as: AuthService, private router: Router) {
   }
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params => {
       let code = params.code;
       if(code === undefined){
-        window.location.href = "/";
+        this.router.navigate(["/"]);
       }
       this.as.setCode(code)
       this.status = "done!";
-      window.location.href = "/login";
+      this.router.navigate(["/login"]);
     });
   }
 }
