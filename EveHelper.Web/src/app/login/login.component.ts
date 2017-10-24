@@ -10,22 +10,22 @@ import { AuthService } from '../service/auth.service';
 export class LoginComponent implements OnInit {
   private code: string;
 
-  constructor(private authSerivce: AuthService) {
-    this.code = this.authSerivce.getCode();
+  constructor(private authService: AuthService) {
+    this.code = this.authService.getCode();
   }
 
   ngOnInit() {
-    if (this.authSerivce.isAuthorized() == false) {
+    if (this.authService.isAuthorized() == false) {
       this.authorize();
     }
   }
 
   authorize() {
-    this.authSerivce.authorize();
+    this.authService.authorize();
   }
 
   logout() {
-    this.authSerivce.setCode("");
+    this.authService.setCode("");
   }
 
 }

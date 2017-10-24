@@ -1,5 +1,5 @@
 <div class="container">
-    <div *ngIf="!authSerivce.isAuthorized()">
+    <div *ngIf="!authService.isAuthorized()">
         <h2>Login</h2>
         <div class="row">
             <div class="col s12">
@@ -7,7 +7,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="authSerivce.isAuthorized()">
+    <div *ngIf="authService.isAuthorized()">
         <h2>Already logged in!</h2>
         <div class="col s12">
             {{code}}
