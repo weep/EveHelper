@@ -1,3 +1,19 @@
 <div class="container">
     <h2>Login</h2>
+
+    <div class="row">
+        <div class="input-field col s4">
+            <input id="keyid" type="text" class="validate" [(ngModel)]="keyId" placeholder="Key ID">
+            <label for="keyid">Key ID</label>
+        </div>
+        <div class="input-field col s8">
+            <input id="vcode" type="text" class="validate" [(ngModel)]="vCode" placeholder="Verification Code">
+            <label for="vcode">Verification code</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <button (click)="saveCode()" class="btn">Save</button>
+        </div>
+    </div>
 </div>
