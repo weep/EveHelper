@@ -57,7 +57,7 @@ namespace EveHelper.API.Controllers
                             "Basic",
                             Convert.ToBase64String(
                                 System.Text.ASCIIEncoding.ASCII.GetBytes(
-                                    string.Format("{0}:{1}", "clientid", "secret"))));
+                                    string.Format("{0}:{1}", "client", "secret"))));
 
                     var json = JsonConvert.SerializeObject(new
                     {
@@ -77,8 +77,6 @@ namespace EveHelper.API.Controllers
                     // Save data in cache.
                     _cache.Set(model.Code, responseTokenModel, cacheEntryOptions);
                 }
-                throw new HttpRequestException("Error getting Access Token form Eve");
-
             }
 
             return responseTokenModel;
