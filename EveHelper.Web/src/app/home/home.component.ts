@@ -22,8 +22,9 @@ export class HomeComponent implements OnInit {
   }
 
   test() {
-    this.eveapiService.oathVerify().subscribe(data => {
-      this.data = data;
+    debugger;
+    this.eveapiService.get("alliances").subscribe((data) => {
+      this.account = data;
     });
   }
 

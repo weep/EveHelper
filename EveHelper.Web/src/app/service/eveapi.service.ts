@@ -51,4 +51,14 @@ export class EveapiService {
       })
     });
   }
+
+  get(path: string) {
+    debugger;
+    let token = this.authService.getAccessToken();
+    return this.http.get("http://localhost:4201/latest/" + path, {
+      headers: new HttpHeaders({
+        "Authorization": "Bearer " + token.access_token
+      })
+    });
+  }
 }
