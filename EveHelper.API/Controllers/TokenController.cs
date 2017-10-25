@@ -57,7 +57,7 @@ namespace EveHelper.API.Controllers
                             "Basic",
                             Convert.ToBase64String(
                                 System.Text.ASCIIEncoding.ASCII.GetBytes(
-                                    string.Format("{0}:{1}", "client", "secret"))));
+                                    string.Format("{0}:{1}", "clientid", "secret"))));
 
                     var json = JsonConvert.SerializeObject(new
                     {
@@ -68,6 +68,8 @@ namespace EveHelper.API.Controllers
                     var response = httpClient.PostAsync(url, new StringContent(json, Encoding.UTF8, "application/json")).Result;
                     var responseString = await response.Content.ReadAsStringAsync();
                     responseTokenModel = JsonConvert.DeserializeObject<AccessTokenModel>(responseString);
+                    if (responseTokenModel.access_token == null)
+                        return null;
 
                     // Set cache options.
                     var cacheEntryOptions = new MemoryCacheEntryOptions()
