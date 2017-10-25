@@ -9,14 +9,22 @@ import { EveapiService } from '../service/eveapi.service';
 })
 export class HomeComponent implements OnInit {
   private account;
+  private data;
 
   constructor(private eveapiService: EveapiService) {
     this.eveapiService.token().subscribe((data) => {
       this.account = data;
     });
+
   }
 
   ngOnInit() {
+  }
+
+  test() {
+    this.eveapiService.oathVerify().subscribe(data => {
+      this.data = data;
+    });
   }
 
 }

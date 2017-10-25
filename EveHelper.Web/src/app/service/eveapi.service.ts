@@ -31,12 +31,24 @@ export class EveapiService {
 
     return this.http.post<AccessToken>("http://localhost:4201/api/token", {
       "code": this.authService.getCode()
+    }).map(token => {
+      this.authService.setAccessToken(token);
+      return token
     });
   }
 
   test() {
     this.http.get("https://login.eveonline.com/oauth/verify").subscribe((response) => {
       console.log(response);
+    });
+  }
+
+  oathVerify() {
+    let token = this.authService.getAccessToken();
+    return this.http.get("https://login.eveonline.com/oauth/verify", {
+      headers: new HttpHeaders({
+        "Authorization": "Bearer " + token.access_token
+      })
     });
   }
 }

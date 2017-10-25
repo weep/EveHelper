@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AccessToken } from '../models/access-token';
 
 @Injectable()
 export class AuthService {
@@ -12,26 +13,30 @@ export class AuthService {
 
   constructor() { }
 
-  authorize(){
+  authorize() {
     console.log(this.scopes);
-    var completeLoginUrl = `https://${this.loginUrl}/oauth/authorize?\
-    response_type=${this.responseType}\
-    &redirect_uri=${this.callbackUrl}\
-    &client_id=${this.clientId}\
-    &scope=${this.scopes}`;
+    var completeLoginUrl = `https://${this.loginUrl}/oauth/authorize?response_type=${this.responseType}&redirect_uri=${this.callbackUrl}&client_id=${this.clientId}&scope=${this.scopes}`;
     window.location.href = completeLoginUrl;
   }
 
-  isAuthorized(){
+  isAuthorized() {
     let code = this.getCode();
     return code != "";
   }
 
-  setCode(code: string){
+  setCode(code: string) {
     window.localStorage.setItem("auth_code", code);
   }
 
-  getCode(){
+  getCode() {
     return window.localStorage.getItem("auth_code");
+  }
+
+  setAccessToken(token: AccessToken) {
+    window.localStorage.setItem("access_token", JSON.stringify(token));
+  }
+
+  getAccessToken(): AccessToken {
+    return JSON.parse(window.localStorage.getItem("access_token"));
   }
 }

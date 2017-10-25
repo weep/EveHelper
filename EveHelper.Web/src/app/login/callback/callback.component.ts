@@ -16,7 +16,7 @@ export class CallbackComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params => {
-      debugger;
+      console.log(params);
       let code = params.code;
       if(code === undefined){
         this.router.navigate(["/"]);

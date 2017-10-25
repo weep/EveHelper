@@ -1,4 +1,8 @@
 <div class="container">
     <h2>Eve Helper</h2>
-    {{account | json}}
+    <div>{{account | json}}</div>
+    <div>{{data | json}}</div>
+    <div>
+        <button class="btn" (click)="test()">Test auth</button> {{data | json}}
+    </div>
 </div>
