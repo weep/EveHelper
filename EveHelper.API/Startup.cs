@@ -24,6 +24,7 @@ namespace EveHelper.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMemoryCache();
+            
             services.AddCors(o => o.AddPolicy("EveHelperPolicy", builder =>
             {
                 builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();

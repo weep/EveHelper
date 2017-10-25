@@ -20,11 +20,4 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  test() {
-    this.eveapiService.oathVerify().subscribe(data => {
-      this.data = data;
-    });
-  }
-
 }

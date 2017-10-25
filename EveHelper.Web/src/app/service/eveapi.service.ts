@@ -25,10 +25,6 @@ export class EveapiService {
   }
 
   token(): Observable<AccessToken> {
-    //return this.authService.getCode();
-    // let httpHeaders = new HttpHeaders();
-    // httpHeaders.set("Authorization", "Bearer " + this.notClientIDAndSecret);
-
     return this.http.post<AccessToken>("http://localhost:4201/api/token", {
       "code": this.authService.getCode()
     }).map(token => {
@@ -36,19 +32,5 @@ export class EveapiService {
       return token
     });
   }
-
-  test() {
-    this.http.get("https://login.eveonline.com/oauth/verify").subscribe((response) => {
-      console.log(response);
-    });
-  }
-
-  oathVerify() {
-    let token = this.authService.getAccessToken();
-    return this.http.get("https://login.eveonline.com/oauth/verify", {
-      headers: new HttpHeaders({
-        "Authorization": "Bearer " + token.access_token
-      })
-    });
-  }
+  
 }
