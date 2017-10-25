@@ -9,6 +9,7 @@ using System.Text;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.AspNetCore.Http;
 
 namespace EveHelper.API.Controllers
 {
@@ -41,7 +42,7 @@ namespace EveHelper.API.Controllers
                             "Basic",
                             Convert.ToBase64String(
                                 System.Text.ASCIIEncoding.ASCII.GetBytes(
-                                    string.Format("{0}:{1}", "client", "secret"))));
+                                    string.Format("{0}:{1}", "clientid", "secret"))));
 
                     var json = JsonConvert.SerializeObject(new
                     {

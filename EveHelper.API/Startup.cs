@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Http;
 
 namespace EveHelper.API
 {
@@ -41,8 +42,20 @@ namespace EveHelper.API
             }
 
             app.UseCors("EveHelperPolicy");
-
+            app.MapWhen(IsProxyPath, builder => builder.RunProxy(new ProxyOptions()
+            {
+                Scheme ="https",
+                Host = "esi.tech.ccp.is",
+                Port = "443"
+            }));
+            
             app.UseMvc();
+        }
+
+
+        private static bool IsProxyPath(HttpContext httpContext)
+        {
+            return httpContext.Request.Path.Value.StartsWith(@"/latest/", StringComparison.OrdinalIgnoreCase);
         }
     }
 }

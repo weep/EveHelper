@@ -32,5 +32,29 @@ export class EveapiService {
       return token
     });
   }
-  
+
+  test() {
+    this.http.get("https://login.eveonline.com/oauth/verify").subscribe((response) => {
+      console.log(response);
+    });
+  }
+
+  oathVerify() {
+    let token = this.authService.getAccessToken();
+    return this.http.get("https://login.eveonline.com/oauth/verify", {
+      headers: new HttpHeaders({
+        "Authorization": "Bearer " + token.access_token
+      })
+    });
+  }
+
+  get(path: string) {
+    debugger;
+    let token = this.authService.getAccessToken();
+    return this.http.get("http://localhost:4201/latest/" + path, {
+      headers: new HttpHeaders({
+        "Authorization": "Bearer " + token.access_token
+      })
+    });
+  }
 }

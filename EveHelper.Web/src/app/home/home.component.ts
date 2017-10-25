@@ -20,4 +20,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  test() {
+    debugger;
+    this.eveapiService.get("alliances").subscribe((data) => {
+      this.account = data;
+    });
+  }
+
 }
