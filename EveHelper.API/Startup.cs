@@ -29,6 +29,7 @@ namespace EveHelper.API
             {
                 builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
             }));
+
             services.AddMvc();
         }
 
@@ -41,20 +42,32 @@ namespace EveHelper.API
             }
 
             app.UseCors("EveHelperPolicy");
+
             app.MapWhen(IsProxyPath, builder => builder.RunProxy(new ProxyOptions()
             {
-                Scheme ="https",
+                Scheme = "https",
                 Host = "esi.tech.ccp.is",
                 Port = "443"
             }));
-            
+            app.MapWhen(IsOathPath, builder => builder.RunProxy(new ProxyOptions()
+            {
+                Scheme = "https",
+                Host = "login.eveonline.com",
+                Port = "443"
+            }));
+
             app.UseMvc();
         }
 
 
         private static bool IsProxyPath(HttpContext httpContext)
         {
-            return httpContext.Request.Path.Value.StartsWith(@"/latest/", StringComparison.OrdinalIgnoreCase);
+            return httpContext.Request.Path.Value.StartsWith(@"/(latest)/", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static bool IsOathPath(HttpContext httpContext)
+        {
+            return httpContext.Request.Path.Value.Equals("/oauth/verify", StringComparison.OrdinalIgnoreCase);
         }
     }
 }

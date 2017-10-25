@@ -3,6 +3,13 @@
     <div>{{account | json}}</div>
     <div>{{data | json}}</div>
     <div>
-        <button class="btn" (click)="test()">Test auth</button> {{data | json}}
+        <button class="btn" (click)="apiAuth()">Api auth</button>
+        <button class="btn" (click)="character()">Verify</button>
+    </div>
+    <div class="col s12">
+        {{account | json}}
+    </div>
+    <div class="col s12">
+        {{characterData | json}}
     </div>
 </div>
