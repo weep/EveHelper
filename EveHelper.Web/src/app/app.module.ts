@@ -10,13 +10,21 @@ import { AuthService } from './service/auth.service';
 import { EveapiService } from './service/eveapi.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CallbackComponent } from './login/callback/callback.component';
+import { WalletComponent } from './wallet/wallet.component';
+import { AssetsComponent } from './assets/assets.component';
+import { CharacterComponent } from './character/character.component';
+import { TransactionsComponent } from './wallet/transactions/transactions.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    CallbackComponent
+    CallbackComponent,
+    WalletComponent,
+    AssetsComponent,
+    CharacterComponent,
+    TransactionsComponent
   ],
   imports: [
     BrowserModule,

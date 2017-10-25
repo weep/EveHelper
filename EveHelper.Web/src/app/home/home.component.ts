@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
 
   private updatingAuth = false;
   private updatingCharacter = false;
+  private fsData;
 
   constructor(private eveapiService: EveapiService) {
 
@@ -48,6 +49,16 @@ export class HomeComponent implements OnInit {
       this.characterData = data;
 
     });
+  }
+
+  execGet(what: string) {
+    this.eveapiService.get(what).subscribe(data => {
+      console.log(data);
+      this.fsData = data;
+    });
+  }
+  execPost(what: string) {
+    console.log(what);
   }
 
 }
