@@ -18,12 +18,13 @@ export class CallbackComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       console.log(params);
       let code = params.code;
-      if(code === undefined){
+      if (code === undefined) {
         this.router.navigate(["/"]);
       }
-      this.as.setCode(code)
-      this.status = "done!";
-      this.router.navigate(["/login"]);
+
+      this.as.token(code).subscribe(() => {
+        this.router.navigate(["/"]);
+      });
     });
   }
 }

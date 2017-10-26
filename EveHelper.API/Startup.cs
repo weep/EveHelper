@@ -63,7 +63,7 @@ namespace EveHelper.API
 
         private static bool IsProxyPath(HttpContext httpContext)
         {
-            return httpContext.Request.Path.Value.StartsWith(@"/latest/", StringComparison.OrdinalIgnoreCase);
+            return httpContext.Request.Path.Value.StartsWith("/latest/", StringComparison.OrdinalIgnoreCase);
         }
 
         private static bool IsOathPath(HttpContext httpContext)

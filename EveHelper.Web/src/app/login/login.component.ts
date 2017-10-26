@@ -8,15 +8,16 @@ import { AuthService } from '../service/auth.service';
   providers: [AuthService]
 })
 export class LoginComponent implements OnInit {
-  private code: string;
-
+  private characterData;
   constructor(private authService: AuthService) {
-    this.code = this.authService.getCode();
   }
 
   ngOnInit() {
     if (this.authService.isAuthorized() == false) {
       this.authorize();
+    }
+    else{
+      this.character();
     }
   }
 
@@ -25,7 +26,14 @@ export class LoginComponent implements OnInit {
   }
 
   logout() {
-    this.authService.setCode("");
+    this.authService.logout();
+  }
+
+  character() {
+    this.authService.character().subscribe(data => {
+      console.log(data);
+      this.characterData = data;
+    });
   }
 
 }

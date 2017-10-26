@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AccessToken } from '../models/access-token';
+import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class AuthService {
@@ -11,7 +13,7 @@ export class AuthService {
   private loginUrl: string = "login.eveonline.com";
   private responseType: string = "code";
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   authorize() {
     console.log(this.scopes);
@@ -19,24 +21,45 @@ export class AuthService {
     window.location.href = completeLoginUrl;
   }
 
+  refrehs() {
+
+  }
+
+  logout() {
+    this.setAccessToken(null);
+  }
+
+  token(authCode: string): Observable<AccessToken> {
+    return this.http.post<AccessToken>("http://localhost:4201/api/token", {
+      "code": authCode
+    }).map(token => {
+      this.setAccessToken(token);
+      return token
+    });
+  }
+
   isAuthorized() {
-    let code = this.getCode();
-    return code != "";
+    let token = this.getAccessToken();
+    return token != null;
   }
 
-  setCode(code: string) {
-    window.localStorage.setItem("auth_code", code);
-  }
-
-  getCode() {
-    return window.localStorage.getItem("auth_code");
-  }
-
-  setAccessToken(token: AccessToken) {
-    window.localStorage.setItem("access_token", JSON.stringify(token));
+  private setAccessToken(token: AccessToken) {
+    if (token == null)
+      window.localStorage.removeItem("access_token");
+    else
+      window.localStorage.setItem("access_token", JSON.stringify(token));
   }
 
   getAccessToken(): AccessToken {
     return JSON.parse(window.localStorage.getItem("access_token"));
+  }
+
+  character() {
+    let token = this.getAccessToken();
+    return this.http.get("http://localhost:4201/oauth/verify", {
+      headers: new HttpHeaders({
+        "Authorization": "Bearer " + token.access_token
+      })
+    });
   }
 }

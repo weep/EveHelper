@@ -1,6 +1,21 @@
 <p>
     transactions works! <button class="btn" (click)="refresh()">Refresh</button>
 </p>
-<div>
-    {{transactions | json}}
-</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Item Price</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let trans of transactions">
+            <td>{{trans.type_id}}</td>
+            <td>{{trans.unit_price}}</td>
+            <td>{{trans.quantity}}</td>
+        </tr>
+    </tbody>
+</table>

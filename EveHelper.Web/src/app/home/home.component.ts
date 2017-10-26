@@ -21,13 +21,8 @@ export class HomeComponent implements OnInit {
 
   }
 
-  apiAuth() {
-    this.eveapiService.token().subscribe((data) => {
-      this.account = data;
-    });
-  }
-
   ngOnInit() {
+    this.character();
   }
 
   test() {
@@ -52,6 +47,8 @@ export class HomeComponent implements OnInit {
   }
 
   execGet(what: string) {
+    what = what.replace("{character_id}", this.characterData.CharacterID);
+
     this.eveapiService.get(what).subscribe(data => {
       console.log(data);
       this.fsData = data;
