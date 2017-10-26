@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { AccessToken } from '../models/access-token';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -16,8 +16,8 @@ export class AuthService {
   private refreshInterval;
 
   constructor(private http: HttpClient) {
-    clearInterval(this.refreshInterval);
-    this.refreshInterval = setInterval(() => this.refresh(), 5 * 1000 * 60);
+    console.log("AuthService Constructor");
+    this.refreshInterval = setInterval(() => this.refresh(), 5 * 1000);
   }
 
   authorize() {
@@ -28,7 +28,7 @@ export class AuthService {
 
   refresh() {
     if (this.getAccessToken() != null) {
-      console.log("Refreshing...");
+      console.log("Refreshing token...");
 
       return this.http.post<AccessToken>("http://localhost:4201/api/token", {
         "refreshToken": this.getAccessToken().refresh_token,
@@ -62,7 +62,6 @@ export class AuthService {
       window.localStorage.removeItem("access_token");
     }
     else {
-      console.log(token);
       window.localStorage.setItem("access_token", JSON.stringify(token));
     }
   }

@@ -3,9 +3,9 @@
 
 </div>
 <div>
-    <p>Bought: {{buyAmount() | number:'3.2-2'}}</p>
-    <p>Sold: {{sellAmount() | number:'3.2-2'}}</p>
-    <p>Diff: {{trend | number:'3.2-2'}}</p>
+    <p>Bought: {{buyAmount() | number:'3.2-2'}} M</p>
+    <p>Sold: {{sellAmount() | number:'3.2-2'}} M</p>
+    <p>Diff: {{trend | number:'3.2-2'}} M</p>
 </div>
 <table class="transactions">
     <thead>
@@ -20,9 +20,9 @@
     <tbody>
         <tr *ngFor="let trans of transactions" [ngClass]="{'buy': trans.is_buy}">
             <td>{{trans.type_id}}</td>
-            <td>{{trans.unit_price}}</td>
+            <td>{{trans.unit_price | number:'3.2-2'}}</td>
             <td>{{trans.quantity}}</td>
-            <td>{{trans.quantity * trans.unit_price}}</td>
+            <td>{{trans.quantity * trans.unit_price | number:'3.2-2'}}</td>
         </tr>
     </tbody>
 </table>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EveapiService } from '../../service/eveapi.service';
 import { Transaction } from '../../models/transaction';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-transactions',
@@ -17,14 +18,14 @@ export class TransactionsComponent implements OnInit {
   }
 
   buyAmount() {
-    return this.transactions.filter(f => !f.is_buy).reduce((sum, transaction) => {
+    return this.transactions.filter(f => f.is_buy).reduce((sum, transaction) => {
       let transAmount = transaction.quantity * transaction.unit_price;
       return sum + transAmount;
     }, 0) / 1000000;
   }
 
   sellAmount() {
-    return this.transactions.filter(f => f.is_buy).reduce((sum, transaction) => {
+    return this.transactions.filter(f => !f.is_buy).reduce((sum, transaction) => {
       let transAmount = transaction.quantity * transaction.unit_price;
       return sum + transAmount;
     }, 0) / 1000000;
@@ -34,10 +35,10 @@ export class TransactionsComponent implements OnInit {
     this.eveapi.get("characters/2019664422/wallet/transactions/").subscribe((data: Transaction[]) => {
       var trend = data.reduce((sum, transaction) => {
         let transAmount = transaction.quantity * transaction.unit_price;
-        if (!transaction.is_buy)
+        if (transaction.is_buy)
           transAmount = -transAmount;
         return sum + transAmount;
-      }, 0);
+      }, 0) / 1000000;
       console.log(data);
       this.trend = trend;
       this.transactions = data;
