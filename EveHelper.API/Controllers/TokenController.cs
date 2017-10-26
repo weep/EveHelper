@@ -49,34 +49,55 @@ namespace EveHelper.API.Controllers
 
             AccessTokenModel responseTokenModel = null;
 
-            // Look for cache key.
-            if (!_cache.TryGetValue(model.Code, out responseTokenModel))
+            if (model.Refresh) 
             {
-                using (var httpClient = new HttpClient())
+                if(_cache.TryGetValue(model.Code, out responseTokenModel))
                 {
-                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}:{1}", _clientId, _secret))));
+                    var json = JsonConvert.SerializeObject(new
+                    {
+                        grant_type = "refresh_token",
+                        refresh_token = responseTokenModel.refresh_token
+                    });
+                    
+                    var refreshedToken = await EveTokenHttpClient(url, json);
 
+                    return refreshedToken;
+                }
+            }
+            else 
+            {
+                // Look for cache key.
+                if (!_cache.TryGetValue(model.Code, out responseTokenModel))
+                {
                     var json = JsonConvert.SerializeObject(new
                     {
                         grant_type = "authorization_code",
                         code = model.Code
                     });
 
-                    var response = httpClient.PostAsync(url, new StringContent(json, Encoding.UTF8, "application/json")).Result;
-                    var responseString = await response.Content.ReadAsStringAsync();
-                    responseTokenModel = JsonConvert.DeserializeObject<AccessTokenModel>(responseString);
-                    if (responseTokenModel.access_token == null)
-                        return null;
+                    var newToken = await EveTokenHttpClient(url, json);
 
-                    // Set cache options.
-                    var cacheEntryOptions = new MemoryCacheEntryOptions()
-                        // Keep in cache for this time, reset time if accessed.
-                        .SetSlidingExpiration(TimeSpan.FromSeconds(responseTokenModel.expires_in));
-
-                    // Save data in cache.
-                    _cache.Set(model.Code, responseTokenModel, cacheEntryOptions);
+                    return newToken;
                 }
+            }
+
+            return responseTokenModel;
+        }
+        private async Task<AccessTokenModel> EveTokenHttpClient(string url, string json)
+        {
+            AccessTokenModel responseTokenModel = null;
+
+            using (var httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}:{1}", _clientId, _secret))));
+
+                var response = httpClient.PostAsync(url, new StringContent(json, Encoding.UTF8, "application/json")).Result;
+                var responseString = await response.Content.ReadAsStringAsync();
+
+                responseTokenModel = JsonConvert.DeserializeObject<AccessTokenModel>(responseString);
+                if (responseTokenModel.access_token == null)
+                    return null;
             }
 
             return responseTokenModel;

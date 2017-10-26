@@ -31,7 +31,8 @@ export class AuthService {
 
   token(authCode: string): Observable<AccessToken> {
     return this.http.post<AccessToken>("http://localhost:4201/api/token", {
-      "code": authCode
+      "code": authCode,
+      "refresh": false
     }).map(token => {
       this.setAccessToken(token);
       return token
