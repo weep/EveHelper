@@ -23,6 +23,7 @@ export class CallbackComponent implements OnInit {
       }
 
       this.as.token(code).subscribe(() => {
+        debugger;
         this.router.navigate(["/"]);
       });
     });

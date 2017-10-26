@@ -20,7 +20,7 @@ namespace EveHelper.API
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseUrls("http://localhost:4201/")
+                .UseUrls("http://0.0.0.0:4201/")
                 .Build();
     }
 }

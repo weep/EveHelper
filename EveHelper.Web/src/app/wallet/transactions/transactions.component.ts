@@ -20,7 +20,7 @@ export class TransactionsComponent implements OnInit {
     this.eveapi.get("characters/2019664422/wallet/transactions/").subscribe((data: Transaction[]) => {
       var trend = data.reduce((sum, transaction) => {
         let transAmount = transaction.quantity * transaction.unit_price;
-        if (transaction.is_buy)
+        if (!transaction.is_buy)
           transAmount = -transAmount;
         return sum + transAmount;
       }, 0);

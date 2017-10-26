@@ -21,7 +21,7 @@ export class AuthService {
     window.location.href = completeLoginUrl;
   }
 
-  refrehs() {
+  refresh() {
 
   }
 

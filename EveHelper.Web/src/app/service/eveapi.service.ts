@@ -10,8 +10,6 @@ import 'rxjs/Rx';
 @Injectable()
 export class EveapiService {
 
-  private notClientIDAndSecret: string = "N2E5Y2YxNjRlMzdlNDJmNzk0ZDRlZDBmYmE4YTA1ZDk6SDdOMWVSUXVEUm95M2hXdzZpdzdFOUk0VTNvMWJsbllkaVpSN0lGTA==";
-
   constructor(private authService: AuthService, private http: HttpClient) {
   }
 
@@ -30,7 +28,7 @@ export class EveapiService {
     });
   }
 
-  character(){
+  character() {
     return this.authService.character();
   }
 }
