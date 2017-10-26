@@ -46,15 +46,14 @@ namespace EveHelper.API.Controllers
         public async Task<AccessTokenModel> Post([FromBody]TokenModel model)
         {
             var url = "https://login.eveonline.com/oauth/token";
-
-            AccessTokenModel responseTokenModel = null;
-
-            if (model.Refresh) 
+            var refresh = !string.IsNullOrWhiteSpace(model.RefreshToken);
+            
+            if (refresh) 
             {
                 var json = JsonConvert.SerializeObject(new
                 {
                     grant_type = "refresh_token",
-                    refresh_token = responseTokenModel.refresh_token
+                    refresh_token = model.RefreshToken
                 });
                 
                 var refreshedToken = await EveTokenHttpClient(url, json);
