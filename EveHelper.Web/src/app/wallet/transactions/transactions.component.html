@@ -1,21 +1,28 @@
-<p>
-{{trend}}<button class="btn" (click)="refresh()">Refresh</button>
-</p>
+<div>
+    <h1>Transactions <button class="btn" (click)="refresh()">Refresh</button></h1>
 
-<table>
+</div>
+<div>
+    <p>Bought: {{buyAmount()}}</p>
+    <p>Sold: {{sellAmount()}}</p>
+    <p>Diff: {{trend}}</p>
+</div>
+<table class="transactions">
     <thead>
         <tr>
             <th>Name</th>
             <th>Item Price</th>
             <th>Quantity</th>
+            <th>Total</th>
         </tr>
     </thead>
 
     <tbody>
-        <tr *ngFor="let trans of transactions">
+        <tr *ngFor="let trans of transactions" [ngClass]="{'buy': trans.is_buy}">
             <td>{{trans.type_id}}</td>
             <td>{{trans.unit_price}}</td>
             <td>{{trans.quantity}}</td>
+            <td>{{trans.quantity * trans.unit_price}}</td>
         </tr>
     </tbody>
 </table>

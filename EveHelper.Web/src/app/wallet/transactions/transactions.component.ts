@@ -16,6 +16,20 @@ export class TransactionsComponent implements OnInit {
     this.refresh();
   }
 
+  buyAmount() {
+    return this.transactions.filter(f => !f.is_buy).reduce((sum, transaction) => {
+      let transAmount = transaction.quantity * transaction.unit_price;
+      return sum + transAmount;
+    }, 0);
+  }
+
+  sellAmount() {
+    return this.transactions.filter(f => f.is_buy).reduce((sum, transaction) => {
+      let transAmount = transaction.quantity * transaction.unit_price;
+      return sum + transAmount;
+    }, 0);
+  }
+
   refresh() {
     this.eveapi.get("characters/2019664422/wallet/transactions/").subscribe((data: Transaction[]) => {
       var trend = data.reduce((sum, transaction) => {

@@ -46,8 +46,10 @@ export class AuthService {
   private setAccessToken(token: AccessToken) {
     if (token == null)
       window.localStorage.removeItem("access_token");
-    else
+    else{
+      console.log(token);
       window.localStorage.setItem("access_token", JSON.stringify(token));
+    }
   }
 
   getAccessToken(): AccessToken {

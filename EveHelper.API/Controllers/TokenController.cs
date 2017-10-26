@@ -17,10 +17,14 @@ namespace EveHelper.API.Controllers
     public class TokenController : Controller
     {
         private IMemoryCache _cache;
+        private string _clientId;
+        private string _secret;
 
         public TokenController(IMemoryCache memoryCache)
         {
             _cache = memoryCache;
+            _clientId = Environment.GetEnvironmentVariable("EVEHELPER_CLIENT_ID", EnvironmentVariableTarget.Machine);
+            _secret = Environment.GetEnvironmentVariable("EVEHELPER_SECRET", EnvironmentVariableTarget.Machine);
         }
 
         [HttpGet("character")]
@@ -51,13 +55,7 @@ namespace EveHelper.API.Controllers
                 using (var httpClient = new HttpClient())
                 {
                     httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                    httpClient.DefaultRequestHeaders.Authorization =
-                        new AuthenticationHeaderValue(
-                            "Basic",
-                            Convert.ToBase64String(
-                                System.Text.ASCIIEncoding.ASCII.GetBytes(
-                                    string.Format("{0}:{1}", "clientid", "secret"))));
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}:{1}", _clientId, _secret))));
 
                     var json = JsonConvert.SerializeObject(new
                     {
