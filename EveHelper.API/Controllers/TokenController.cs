@@ -47,38 +47,30 @@ namespace EveHelper.API.Controllers
 
             if (model.Refresh) 
             {
-                if(_cache.TryGetValue(model.Code, out responseTokenModel))
+                var json = JsonConvert.SerializeObject(new
                 {
-                    var json = JsonConvert.SerializeObject(new
-                    {
-                        grant_type = "refresh_token",
-                        refresh_token = responseTokenModel.refresh_token
-                    });
-                    
-                    var refreshedToken = await EveTokenHttpClient(url, json);
+                    grant_type = "refresh_token",
+                    refresh_token = responseTokenModel.refresh_token
+                });
+                
+                var refreshedToken = await EveTokenHttpClient(url, json);
 
-                    return refreshedToken;
-                }
+                return refreshedToken;
             }
             else 
             {
-                // Look for cache key.
-                if (!_cache.TryGetValue(model.Code, out responseTokenModel))
+                var json = JsonConvert.SerializeObject(new
                 {
-                    var json = JsonConvert.SerializeObject(new
-                    {
-                        grant_type = "authorization_code",
-                        code = model.Code
-                    });
+                    grant_type = "authorization_code",
+                    code = model.Code
+                });
 
-                    var newToken = await EveTokenHttpClient(url, json);
+                var newToken = await EveTokenHttpClient(url, json);
 
-                    return newToken;
-                }
+                return newToken;
             }
-
-            return responseTokenModel;
         }
+        
         private async Task<AccessTokenModel> EveTokenHttpClient(string url, string json)
         {
             AccessTokenModel responseTokenModel = null;
