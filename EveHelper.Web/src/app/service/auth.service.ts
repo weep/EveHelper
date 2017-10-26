@@ -13,7 +13,12 @@ export class AuthService {
   private loginUrl: string = "login.eveonline.com";
   private responseType: string = "code";
 
-  constructor(private http: HttpClient) { }
+  private refreshInterval;
+
+  constructor(private http: HttpClient) {
+    clearInterval(this.refreshInterval);
+    this.refreshInterval = setInterval(() => this.refresh(), 5 * 1000 * 60);
+  }
 
   authorize() {
     console.log(this.scopes);
@@ -22,7 +27,16 @@ export class AuthService {
   }
 
   refresh() {
+    if (this.getAccessToken() != null) {
+      console.log("Refreshing...");
 
+      return this.http.post<AccessToken>("http://localhost:4201/api/token", {
+        "refreshToken": this.getAccessToken().refresh_token,
+      }).map(token => {
+        this.setAccessToken(token);
+        return token
+      }).subscribe();
+    }
   }
 
   logout() {
@@ -31,8 +45,7 @@ export class AuthService {
 
   token(authCode: string): Observable<AccessToken> {
     return this.http.post<AccessToken>("http://localhost:4201/api/token", {
-      "code": authCode,
-      "refreshToken": ""
+      "code": authCode
     }).map(token => {
       this.setAccessToken(token);
       return token
@@ -45,9 +58,10 @@ export class AuthService {
   }
 
   private setAccessToken(token: AccessToken) {
-    if (token == null)
+    if (token == null) {
       window.localStorage.removeItem("access_token");
-    else{
+    }
+    else {
       console.log(token);
       window.localStorage.setItem("access_token", JSON.stringify(token));
     }

@@ -20,14 +20,14 @@ export class TransactionsComponent implements OnInit {
     return this.transactions.filter(f => !f.is_buy).reduce((sum, transaction) => {
       let transAmount = transaction.quantity * transaction.unit_price;
       return sum + transAmount;
-    }, 0);
+    }, 0) / 1000000;
   }
 
   sellAmount() {
     return this.transactions.filter(f => f.is_buy).reduce((sum, transaction) => {
       let transAmount = transaction.quantity * transaction.unit_price;
       return sum + transAmount;
-    }, 0);
+    }, 0) / 1000000;
   }
 
   refresh() {

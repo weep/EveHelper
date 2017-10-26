@@ -3,9 +3,9 @@
 
 </div>
 <div>
-    <p>Bought: {{buyAmount()}}</p>
-    <p>Sold: {{sellAmount()}}</p>
-    <p>Diff: {{trend}}</p>
+    <p>Bought: {{buyAmount() | number:'3.2-2'}}</p>
+    <p>Sold: {{sellAmount() | number:'3.2-2'}}</p>
+    <p>Diff: {{trend | number:'3.2-2'}}</p>
 </div>
 <table class="transactions">
     <thead>

@@ -23,8 +23,8 @@ namespace EveHelper.API.Controllers
         public TokenController(IMemoryCache memoryCache)
         {
             _cache = memoryCache;
-            _clientId = Environment.GetEnvironmentVariable("EVEHELPER_CLIENT_ID", EnvironmentVariableTarget.Machine);
-            _secret = Environment.GetEnvironmentVariable("EVEHELPER_SECRET", EnvironmentVariableTarget.Machine);
+            _clientId = Environment.GetEnvironmentVariable("EVEHELPER_CLIENT_ID", EnvironmentVariableTarget.Machine) ?? "clientid";
+            _secret = Environment.GetEnvironmentVariable("EVEHELPER_SECRET", EnvironmentVariableTarget.Machine) ?? "secret";
         }
 
         [HttpGet("character")]
@@ -47,20 +47,20 @@ namespace EveHelper.API.Controllers
         {
             var url = "https://login.eveonline.com/oauth/token";
             var refresh = !string.IsNullOrWhiteSpace(model.RefreshToken);
-            
-            if (refresh) 
+
+            if (refresh)
             {
                 var json = JsonConvert.SerializeObject(new
                 {
                     grant_type = "refresh_token",
                     refresh_token = model.RefreshToken
                 });
-                
+
                 var refreshedToken = await EveTokenHttpClient(url, json);
 
                 return refreshedToken;
             }
-            else 
+            else
             {
                 var json = JsonConvert.SerializeObject(new
                 {
@@ -73,7 +73,7 @@ namespace EveHelper.API.Controllers
                 return newToken;
             }
         }
-        
+
         private async Task<AccessTokenModel> EveTokenHttpClient(string url, string json)
         {
             AccessTokenModel responseTokenModel = null;
