@@ -15,9 +15,26 @@ export class AuthService {
 
   private refreshInterval;
 
+  private lastRefresh: Date;
+  private nextRefresh: Date;
+  public refreshCountdown: number;
+
   constructor(private http: HttpClient) {
     console.log("AuthService Constructor");
-    this.refreshInterval = setInterval(() => this.refresh(), 5 * 1000);
+    //this.refreshInterval = setInterval(() => this.refresh(), 10 * 1000 * 60);
+    setInterval(() => this.tickDown(), 100);
+
+    this.lastRefresh = new Date();
+    this.nextRefresh = new Date();
+    this.nextRefresh.setMinutes(this.lastRefresh.getMinutes() + 10);
+  }
+
+  private tickDown() {
+    var now = new Date();
+    this.refreshCountdown = Math.round((this.nextRefresh.getTime() - now.getTime()) / 1000);
+    //console.log(this.refreshCountdown);
+    if(this.refreshCountdown < 0)
+      this.refresh();
   }
 
   authorize() {
@@ -26,9 +43,13 @@ export class AuthService {
     window.location.href = completeLoginUrl;
   }
 
-  refresh() {
+  private refresh() {
     if (this.getAccessToken() != null) {
       console.log("Refreshing token...");
+
+      this.lastRefresh = new Date();
+      this.nextRefresh = new Date();
+      this.nextRefresh.setMinutes(this.lastRefresh.getMinutes() + 10);
 
       return this.http.post<AccessToken>("http://localhost:4201/api/token", {
         "refreshToken": this.getAccessToken().refresh_token,
