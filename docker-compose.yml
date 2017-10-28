@@ -2,31 +2,26 @@ version: '3'
 services:
     mongo:
         image: mongo:latest
-        container_name: evehelper_db
-        ports:
-          - "27017:27017"
         environment:
           - MONGO_INITDB_ROOT_USERNAME=admin
           - MONGO_INITDB_ROOT_PASSWORD=admin
           - MONGO_INITDB_DATABASE=admin
-    mongo_web:
-        image: mongo-express
-        container_name: evehelper_db_web
-        ports:
-          - "8083:8081"
-        environment:
-          - ME_CONFIG_OPTIONS_EDITORTHEME=ambiance
-          - ME_CONFIG_MONGODB_URL=mongodb://mongo:27017
-          - ME_CONFIG_MONGODB_AUTH_DATABASE=admin
-          - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
-          - ME_CONFIG_MONGODB_ADMINPASSWORD=admin
     mongo_client:
         image: mongoclient/mongoclient
-        container_name: mongo_client
         ports:
           - "8084:3000"
         depends_on:
           - mongo
         environment:
           - MONGOCLIENT_DEFAULT_CONNECTION_URL=mongodb://admin:admin@mongo:27017
-    
+          - VIRTUAL_HOST=mc.eh.local
+    nginx-proxy:
+        image: jwilder/nginx-proxy
+        ports:
+          - "81:80"
+        volumes:
+          - ~/test.sock:/tmp/docker.sock:ro
+    whoami:
+        image: jwilder/whoami
+        environment:
+          - VIRTUAL_HOST=whoami.local
