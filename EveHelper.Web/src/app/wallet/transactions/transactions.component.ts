@@ -39,7 +39,6 @@ export class TransactionsComponent implements OnInit {
           transAmount = -transAmount;
         return sum + transAmount;
       }, 0) / 1000000;
-      console.log(data);
       this.trend = trend;
       this.transactions = data;
     });

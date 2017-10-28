@@ -14,6 +14,8 @@ import { WalletComponent } from './wallet/wallet.component';
 import { AssetsComponent } from './assets/assets.component';
 import { CharacterComponent } from './character/character.component';
 import { TransactionsComponent } from './wallet/transactions/transactions.component';
+import { OrdersComponent } from './wallet/orders/orders.component';
+import { RedirectComponent } from './login/redirect/redirect.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { TransactionsComponent } from './wallet/transactions/transactions.compon
     WalletComponent,
     AssetsComponent,
     CharacterComponent,
-    TransactionsComponent
+    TransactionsComponent,
+    OrdersComponent,
+    RedirectComponent
   ],
   imports: [
     BrowserModule,
