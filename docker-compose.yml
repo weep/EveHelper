@@ -3,8 +3,6 @@ services:
     mongo:
         image: mongo:latest
         hostname: evehelper_db
-        ports:
-          - "27017:27017"
         environment:
           - MONGO_INITDB_ROOT_USERNAME=admin
           - MONGO_INITDB_ROOT_PASSWORD=admin
@@ -13,8 +11,6 @@ services:
     mongo_client:
         image: mongoclient/mongoclient
         hostname: mongo-client
-        ports:
-          - "8084:3000"
         depends_on:
           - mongo
         environment:
@@ -23,7 +19,14 @@ services:
           
     proxy:
         build:
-          context:  ./nginx
+          context:  ./EveHelper.Proxy
           dockerfile: Dockerfile
         ports:
           - "81:80"
+          
+    #web:
+    #    build:
+    #      context: ./EveHelper.Web
+    #      dockerfile: Dockerfile
+    #    environment:
+    #      - VIRTUAL_HOST=eh.local
