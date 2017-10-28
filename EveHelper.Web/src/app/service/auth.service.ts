@@ -49,7 +49,7 @@ export class AuthService {
   }
 
   private refresh() {
-    if (this.getAccessToken() != null) {
+    if (this.accessToken != null) {
       console.log("Refreshing token...");
 
       this.lastRefresh = new Date();
@@ -57,7 +57,7 @@ export class AuthService {
       this.nextRefresh.setMinutes(this.lastRefresh.getMinutes() + 10);
 
       return this.http.post<AccessToken>("http://localhost:4201/api/token", {
-        "refreshToken": this.getAccessToken().refresh_token,
+        "refreshToken": this.accessToken.refresh_token,
       }).map(token => {
         this.setAccessToken(token);
         return token
@@ -79,7 +79,7 @@ export class AuthService {
   }
 
   isAuthorized() {
-    let token = this.getAccessToken();
+    let token = this.accessToken
     return token != null;
   }
 
@@ -92,7 +92,7 @@ export class AuthService {
     }
   }
 
-  getAccessToken(): AccessToken {
+  get accessToken(): AccessToken {
     return JSON.parse(window.localStorage.getItem("access_token"));
   }
 
@@ -103,26 +103,19 @@ export class AuthService {
   get character(): Character {
     if (this.characterLoaded)
       return this._character;
-
-    if (!this.characterLoading) {
-      this.retUrl = this.router.url;
-      this.characterLoading = true;
-
-      this.router.navigate(["login", "redirect"]);
-
-      this.getCharacter().subscribe((char: Character) => {
-        this._character = char;
-        this.router.navigateByUrl(this.retUrl);
-      });
-    }
+    this._character = JSON.parse(window.localStorage.getItem("character"));
   }
 
-  private getCharacter(): Observable<Character> {
-    let token = this.getAccessToken();
+  public loadCharacter(): Observable<Character> {
     return this.http.get<Character>("http://localhost:4201/oauth/verify", {
       headers: new HttpHeaders({
-        "Authorization": "Bearer " + token.access_token
+        "Authorization": "Bearer " + this.accessToken.access_token
       })
+    }).map((char: Character) => {
+      console.log(char);
+      this._character = char;
+      window.localStorage.setItem("character", JSON.stringify(char));
+      return char;
     });
   }
 }
