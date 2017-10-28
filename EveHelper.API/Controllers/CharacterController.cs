@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 namespace EveHelper.API.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Character")]
+    [Route("api/character")]
     public class CharacterController : Controller
     {
         private readonly ICharacterRepository _characterRepository;
@@ -30,15 +30,15 @@ namespace EveHelper.API.Controllers
 
         // GET api/Character/5
         [HttpGet("{id}")]
-        public Task<string> Get(string id)
+        public async Task<CharacterModel> Get(string id)
         {
-            return GetCharacterById(id);
+            return await GetCharacterById(id);
         }
 
-        private async Task<string> GetCharacterById(string id)
+        private async Task<CharacterModel> GetCharacterById(string id)
         {
             var character = await _characterRepository.GetCharacter(id);
-            return JsonConvert.SerializeObject(character);
+            return character;
         }
     }
 }
