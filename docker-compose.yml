@@ -2,7 +2,7 @@ version: '3'
 services:
     mongo:
         image: mongo:latest
-        container_name: evehelper_db
+        hostname: evehelper_db
         ports:
           - "27017:27017"
         environment:
