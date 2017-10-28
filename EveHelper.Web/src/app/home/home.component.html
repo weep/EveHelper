@@ -1,6 +1,8 @@
 <div class="container">
     <h2>Eve Helper</h2>
-    <h3>{{characterData.CharacterName}} - {{characterData.CharacterID}}</h3>
+    <div *ngIf="characterData">
+        <h3>{{characterData.CharacterName}} - {{characterData.CharacterID}}</h3>
+    </div>
     <div>
         <h2>F-F-FFreestylah</h2>
         <h6>rakkamakkaphone</h6>
