@@ -3,6 +3,8 @@ services:
     mongo:
         image: mongo:latest
         hostname: evehelper_db
+        ports:
+          - "27017:27017"
         environment:
           - MONGO_INITDB_ROOT_USERNAME=admin
           - MONGO_INITDB_ROOT_PASSWORD=admin
@@ -11,6 +13,8 @@ services:
     mongo_client:
         image: mongoclient/mongoclient
         hostname: mongo-client
+        ports:
+          - "8084:3000"
         depends_on:
           - mongo
         environment:
