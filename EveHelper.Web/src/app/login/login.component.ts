@@ -15,9 +15,6 @@ export class LoginComponent implements OnInit {
     if (this.authService.isAuthorized() == false) {
       this.authorize();
     }
-    else{
-      this.character();
-    }
   }
 
   authorize() {
@@ -27,12 +24,4 @@ export class LoginComponent implements OnInit {
   logout() {
     this.authService.logout();
   }
-
-  character() {
-    this.authService.character().subscribe(data => {
-      console.log(data);
-      this.characterData = data;
-    });
-  }
-
 }

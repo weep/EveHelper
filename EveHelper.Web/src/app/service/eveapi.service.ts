@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { AccessToken } from '../models/access-token';
 
 import 'rxjs/Rx';
+import { Character } from '../models/character';
 
 @Injectable()
 export class EveapiService {
@@ -19,16 +20,15 @@ export class EveapiService {
     });
   }
 
-  get(path: string) {
-    let token = this.authService.getAccessToken();
-    return this.http.get("http://localhost:4201/latest/" + path, {
-      headers: new HttpHeaders({
-        "Authorization": "Bearer " + token.access_token
-      })
-    });
+  get character(){
+    return this.authService.character;
   }
 
-  character() {
-    return this.authService.character();
+  get(path: string) {
+    return this.http.get("http://localhost:4201/latest/" + path, {
+      headers: new HttpHeaders({
+        "Authorization": "Bearer " + this.authService.accessToken.access_token
+      })
+    });
   }
 }

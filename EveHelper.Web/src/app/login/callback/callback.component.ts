@@ -20,10 +20,13 @@ export class CallbackComponent implements OnInit {
       let code = params.code;
       if (code === undefined) {
         this.router.navigate(["/"]);
+        this.as.character
       }
 
       this.as.token(code).subscribe(() => {
-        this.router.navigate(["/"]);
+        this.as.loadCharacter().subscribe(char => {
+          this.router.navigate(["/"]);
+        });
       });
     });
   }

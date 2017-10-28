@@ -1,0 +1,26 @@
+<div>
+    <h1>Orders <button class="btn" (click)="refresh()">Refresh</button></h1>
+
+</div>
+<div *ngIf="orders">
+    <p>stats</p>
+</div>
+<table class="orders">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Item Price</th>
+            <th>Quantity</th>
+            <th>State</th>
+        </tr>
+    </thead>
+
+    <tbody *ngIf="orders">
+        <tr *ngFor="let order of orders" [ngClass]="{'buy': order.is_buy_order}">
+            <td>{{order.type_id}}</td>
+            <td>{{order.price | number:'3.2-2'}}</td>
+            <td>{{order.quantity}}</td>
+            <td>{{order.state}}</td>
+        </tr>
+    </tbody>
+</table>
