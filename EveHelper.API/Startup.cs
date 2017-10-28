@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Http;
+using EveHelper.API.Interfaces;
+using EveHelper.API.Repositories;
 
 namespace EveHelper.API
 {
@@ -25,7 +27,15 @@ namespace EveHelper.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMemoryCache();
-            
+
+            services.Configure<DbSettings>(options =>
+            {
+                options.ConnectionString = Configuration.GetSection("MongoConnection:ConnectionString").Value;
+                options.Database = Configuration.GetSection("MongoConnection:Database").Value;
+            });
+
+            services.AddTransient<ICharacterRepository, CharacterRepository>();
+
             services.AddCors(o => o.AddPolicy("EveHelperPolicy", builder =>
             {
                 builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
@@ -50,6 +60,7 @@ namespace EveHelper.API
                 Host = "esi.tech.ccp.is",
                 Port = "443"
             }));
+            
             app.MapWhen(IsOathPath, builder => builder.RunProxy(new ProxyOptions()
             {
                 Scheme = "https",
