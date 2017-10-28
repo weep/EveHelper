@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import { URLSearchParams } from "@angular/http";
 import { EveapiService } from '../../service/eveapi.service';
+import { InternalapiService } from '../../service/internal/internalapi.service';
 
 @Component({
   selector: 'app-callback',
@@ -13,10 +14,11 @@ export class CallbackComponent implements OnInit {
   private status = "loading";
 
   constructor(
-    private activatedRoute: ActivatedRoute, 
-    private as: AuthService, 
+    private activatedRoute: ActivatedRoute,
+    private as: AuthService,
     private router: Router,
-    private eapi: EveapiService
+    private eapi: EveapiService,
+    private ias: InternalapiService
   ) {
   }
 
@@ -26,13 +28,17 @@ export class CallbackComponent implements OnInit {
       let code = params.code;
       if (code === undefined) {
         this.router.navigate(["/"]);
-        this.as.character
       }
 
       this.as.token(code).subscribe(() => {
         this.as.loadCharacter().subscribe(char => {
-          this.eapi.
-          this.router.navigate(["/"]);
+          this.ias.post("api/character", {
+            "id": char.CharacterID,
+            "name": char.CharacterName,
+            "portraitUrl": ""
+          }).subscribe(data => {
+            this.router.navigate(["/"]);
+          });
         });
       });
     });

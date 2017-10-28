@@ -16,6 +16,7 @@ import { CharacterComponent } from './character/character.component';
 import { TransactionsComponent } from './wallet/transactions/transactions.component';
 import { OrdersComponent } from './wallet/orders/orders.component';
 import { RedirectComponent } from './login/redirect/redirect.component';
+import { InternalapiService } from './service/internal/internalapi.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { RedirectComponent } from './login/redirect/redirect.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [AuthService, EveapiService],
+  providers: [AuthService, EveapiService, InternalapiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

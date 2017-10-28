@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
+import { InternalapiService } from '../service/internal/internalapi.service';
 
 @Component({
   selector: 'app-login',
@@ -7,8 +8,9 @@ import { AuthService } from '../service/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  responseGetChar: {};
   private characterData;
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private ias: InternalapiService) {
   }
 
   ngOnInit() {
@@ -23,5 +25,12 @@ export class LoginComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+  }
+
+  getResponseGetChar(){
+    this.ias.get("api/character/" + this.authService.character.CharacterID).subscribe(data => {
+      this.responseGetChar = data;
+      console.log(data);
+    })
   }
 }

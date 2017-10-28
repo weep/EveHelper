@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using EveHelper.API.Interfaces;
 using EveHelper.API.Models;
 using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace EveHelper.API.Controllers
 {
@@ -23,9 +24,10 @@ namespace EveHelper.API.Controllers
 
         // POST api/Character
         [HttpPost]
-        public void Post([FromBody]CharacterModel characterModel)
+        public async Task<IActionResult> Post([FromBody]CharacterModel characterModel)
         {
-            _characterRepository.AddCharacter(characterModel);
+            await _characterRepository.AddCharacter(characterModel);
+            return await Task.FromResult(Created("", characterModel));
         }
 
         // GET api/Character/5

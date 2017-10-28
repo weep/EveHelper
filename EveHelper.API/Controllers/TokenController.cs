@@ -27,21 +27,6 @@ namespace EveHelper.API.Controllers
             _secret = Environment.GetEnvironmentVariable("EVEHELPER_SECRET", EnvironmentVariableTarget.Machine) ?? "secret";
         }
 
-        [HttpGet("character")]
-        public async Task<HttpResponseMessage> Character()
-        {
-            using (var httpClient = new HttpClient())
-            {
-                var request = new HttpRequestMessage
-                {
-                    RequestUri = new Uri("https://login.eveonline.com/oauth/verify"),
-                    Method = HttpMethod.Get
-                };
-                //Request.Headers
-                return await httpClient.SendAsync(request);
-            }
-        }
-
         [HttpPost]
         public async Task<AccessTokenModel> Post([FromBody]TokenModel model)
         {
