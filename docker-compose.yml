@@ -12,13 +12,24 @@ services:
     mongo_web:
         image: mongo-express
         container_name: evehelper_db_web
-        links:
-          - mongo:mongo
         ports:
           - "8083:8081"
         environment:
-          - ME_CONFIG_OPTIONS_EDITORTHEME="ambiance"
-          - ME_CONFIG_MONGODB_ADMINUSERNAME="admin"
-          - ME_CONFIG_MONGODB_ADMINPASSWORD="admin"
-          - ME_CONFIG_BASICAUTH_USERNAME="admin"
-          - ME_CONFIG_BASICAUTH_PASSWORD="admin"
+          - ME_CONFIG_OPTIONS_EDITORTHEME=ambiance
+          - ME_CONFIG_MONGODB_URL=mongodb://mongo:27017
+          - ME_CONFIG_MONGODB_AUTH_DATABASE=admin
+          - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+          - ME_CONFIG_MONGODB_ADMINPASSWORD=admin
+    mongo_client:
+        image: mongoclient/mongoclient
+        container_name: mongo_client
+        ports:
+          - "8084:3000"
+        depends_on:
+          - mongo
+        environment:
+          - MONGOCLIENT_AUTH=true
+          - MONGOCLIENT_USERNAME=admin
+          - MONGOCLIENT_PASSWORD=admin
+          - MONGOCLIENT_DEFAULT_CONNECTION_URL=mongodb://mongo:27017
+    
