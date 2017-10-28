@@ -38,11 +38,7 @@ export class HomeComponent implements OnInit {
   }
 
   character() {
-    this.eveapiService.character().subscribe(data => {
-      console.log(data);
-      this.characterData = data;
-
-    });
+    this.characterData = this.eveapiService.character;
   }
 
   execGet(what: string) {

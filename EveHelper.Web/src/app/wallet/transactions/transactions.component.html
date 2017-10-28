@@ -2,10 +2,10 @@
     <h1>Transactions <button class="btn" (click)="refresh()">Refresh</button></h1>
 
 </div>
-<div>
+<div *ngIf="transactions">
     <p>Bought: {{buyAmount() | number:'3.2-2'}} M</p>
     <p>Sold: {{sellAmount() | number:'3.2-2'}} M</p>
-    <p>Diff: {{trend | number:'3.2-2'}} M</p>
+    <p>Diff: {{trend | number:'.2-2'}} M</p>
 </div>
 <table class="transactions">
     <thead>
@@ -17,12 +17,12 @@
         </tr>
     </thead>
 
-    <tbody>
+    <tbody *ngIf="transactions">
         <tr *ngFor="let trans of transactions" [ngClass]="{'buy': trans.is_buy}">
             <td>{{trans.type_id}}</td>
             <td>{{trans.unit_price | number:'3.2-2'}}</td>
             <td>{{trans.quantity}}</td>
-            <td>{{trans.quantity * trans.unit_price | number:'3.2-2'}}</td>
+            <td>{{trans.quantity * trans.unit_price | number:'.2-2'}}</td>
         </tr>
     </tbody>
 </table>

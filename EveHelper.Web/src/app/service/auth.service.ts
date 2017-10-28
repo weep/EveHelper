@@ -1,7 +1,8 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AccessToken } from '../models/access-token';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Character } from '../models/character';
 
 @Injectable()
 export class AuthService {
@@ -14,6 +15,7 @@ export class AuthService {
   private responseType: string = "code";
 
   private refreshInterval;
+  private _character: Character;
 
   private lastRefresh: Date;
   private nextRefresh: Date;
@@ -21,6 +23,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {
     console.log("AuthService Constructor");
+
     //this.refreshInterval = setInterval(() => this.refresh(), 10 * 1000 * 60);
     setInterval(() => this.tickDown(), 100);
 
@@ -33,7 +36,7 @@ export class AuthService {
     var now = new Date();
     this.refreshCountdown = Math.round((this.nextRefresh.getTime() - now.getTime()) / 1000);
     //console.log(this.refreshCountdown);
-    if(this.refreshCountdown < 0)
+    if (this.refreshCountdown < 0)
       this.refresh();
   }
 
@@ -91,9 +94,18 @@ export class AuthService {
     return JSON.parse(window.localStorage.getItem("access_token"));
   }
 
-  character() {
+  get character(): Character {
+    if (this._character)
+      return this._character;
+
+    this.getCharacter().map(data => {return data;}).subscribe((char: Character) => {
+      this._character = char;
+    });
+  }
+
+  private getCharacter(): Observable<Character> {
     let token = this.getAccessToken();
-    return this.http.get("http://localhost:4201/oauth/verify", {
+    return this.http.get<Character>("http://localhost:4201/oauth/verify", {
       headers: new HttpHeaders({
         "Authorization": "Bearer " + token.access_token
       })

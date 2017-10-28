@@ -32,7 +32,7 @@ export class TransactionsComponent implements OnInit {
   }
 
   refresh() {
-    this.eveapi.get("characters/2019664422/wallet/transactions/").subscribe((data: Transaction[]) => {
+    this.eveapi.get("characters/" + this.eveapi.character.CharacterID + "/wallet/transactions/").subscribe((data: Transaction[]) => {
       var trend = data.reduce((sum, transaction) => {
         let transAmount = transaction.quantity * transaction.unit_price;
         if (transaction.is_buy)
