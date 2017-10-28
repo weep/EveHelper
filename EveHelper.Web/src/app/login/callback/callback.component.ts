@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import { URLSearchParams } from "@angular/http";
+import { EveapiService } from '../../service/eveapi.service';
 
 @Component({
   selector: 'app-callback',
@@ -11,7 +12,12 @@ import { URLSearchParams } from "@angular/http";
 export class CallbackComponent implements OnInit {
   private status = "loading";
 
-  constructor(private activatedRoute: ActivatedRoute, private as: AuthService, private router: Router) {
+  constructor(
+    private activatedRoute: ActivatedRoute, 
+    private as: AuthService, 
+    private router: Router,
+    private eapi: EveapiService
+  ) {
   }
 
   ngOnInit() {
@@ -25,6 +31,7 @@ export class CallbackComponent implements OnInit {
 
       this.as.token(code).subscribe(() => {
         this.as.loadCharacter().subscribe(char => {
+          this.eapi.
           this.router.navigate(["/"]);
         });
       });

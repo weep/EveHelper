@@ -20,15 +20,19 @@ export class EveapiService {
     });
   }
 
-  get character(){
+  get character() {
     return this.authService.character;
   }
 
-  get(path: string) {
-    return this.http.get("http://localhost:4201/latest/" + path, {
-      headers: new HttpHeaders({
-        "Authorization": "Bearer " + this.authService.accessToken.access_token
-      })
+  get<T>(path: string): Observable<T> {
+    return this.http.get<T>("http://localhost:4201/latest/" + path, {
+      headers: new HttpHeaders({ "Authorization": "Bearer " + this.authService.accessToken.access_token })
+    });
+  }
+
+  post<T>(path: string, object: any): Observable<T> {
+    return this.http.post<T>("http://localhost:4201/latest/" + path, object, {
+      headers: new HttpHeaders({ "Authorization": "Bearer " + this.authService.accessToken.access_token })
     });
   }
 }
