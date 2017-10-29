@@ -9,4 +9,4 @@
         </ul>
     </div>
 </nav>
-<router-outlet></router-outlet>
+<router-outlet *ngIf="authService.characterLoaded"></router-outlet>

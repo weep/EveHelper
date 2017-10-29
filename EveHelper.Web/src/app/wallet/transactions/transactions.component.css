@@ -6,7 +6,7 @@ table.transactions tbody tr.buy {
     background-color: rgb(255, 214, 214);
 }
 
-table.transactions tr td {
+table tr td {
     padding: 0;
     border-radius: 0;
     color: black;

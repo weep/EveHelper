@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EveapiService } from '../../service/eveapi.service';
 import { Transaction } from '../../models/transaction';
 import { DecimalPipe } from '@angular/common';
+import { Transactionstats } from './transactionstats.module';
 
 @Component({
   selector: 'app-transactions',
@@ -11,24 +12,30 @@ import { DecimalPipe } from '@angular/common';
 export class TransactionsComponent implements OnInit {
   private transactions: Transaction[];
   private trend: number;
+  private stats;
   constructor(private eveapi: EveapiService) { }
 
   ngOnInit() {
     this.refresh();
   }
 
-  buyAmount() {
+  get buyAmount() {
     return this.transactions.filter(f => f.is_buy).reduce((sum, transaction) => {
       let transAmount = transaction.quantity * transaction.unit_price;
       return sum + transAmount;
     }, 0) / 1000000;
   }
 
-  sellAmount() {
+  get sellAmount() {
     return this.transactions.filter(f => !f.is_buy).reduce((sum, transaction) => {
       let transAmount = transaction.quantity * transaction.unit_price;
       return sum + transAmount;
     }, 0) / 1000000;
+  }
+
+  refreshStatistics() {
+    this.stats = new Transactionstats(this.transactions);
+    console.log(this.stats);
   }
 
   refresh() {
@@ -41,6 +48,7 @@ export class TransactionsComponent implements OnInit {
       }, 0) / 1000000;
       this.trend = trend;
       this.transactions = data;
+      this.refreshStatistics();
     });
   }
 
