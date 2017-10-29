@@ -39,17 +39,32 @@ export class TransactionsComponent implements OnInit {
   }
 
   refresh() {
-    this.eveapi.get("characters/" + this.eveapi.character.CharacterID + "/wallet/transactions/").subscribe((data: Transaction[]) => {
-      var trend = data.reduce((sum, transaction) => {
-        let transAmount = transaction.quantity * transaction.unit_price;
-        if (transaction.is_buy)
-          transAmount = -transAmount;
-        return sum + transAmount;
-      }, 0) / 1000000;
-      this.trend = trend;
-      this.transactions = data;
-      this.refreshStatistics();
-    });
+    if (this.transactions) {
+      this.eveapi.get("characters/" + this.eveapi.character.CharacterID + "/wallet/transactions?from_id=" + this.transactions[0].transaction_id).subscribe((data: Transaction[]) => {
+        var trend = data.reduce((sum, transaction) => {
+          let transAmount = transaction.quantity * transaction.unit_price;
+          if (transaction.is_buy)
+            transAmount = -transAmount;
+          return sum + transAmount;
+        }, 0) / 1000000;
+        this.trend = trend;
+        this.transactions = data;
+        this.refreshStatistics();
+      });
+    }
+    else{
+      this.eveapi.get("characters/" + this.eveapi.character.CharacterID + "/wallet/transactions/").subscribe((data: Transaction[]) => {
+        var trend = data.reduce((sum, transaction) => {
+          let transAmount = transaction.quantity * transaction.unit_price;
+          if (transaction.is_buy)
+            transAmount = -transAmount;
+          return sum + transAmount;
+        }, 0) / 1000000;
+        this.trend = trend;
+        this.transactions = data;
+        this.refreshStatistics();
+      });
+    }
   }
 
 }

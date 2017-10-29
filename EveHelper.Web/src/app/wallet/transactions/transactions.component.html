@@ -3,7 +3,7 @@
 
 </div>
 <div *ngIf="transactions">
-    <h5>Revenue: {{stats.revenue / 1000}} B</h5>
+    <h5>Revenue: {{stats.revenue / 1000 | number:'.2-2'}} B</h5>
     <table *ngIf="stats">
         <thead>
             <tr>

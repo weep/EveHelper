@@ -11,7 +11,8 @@
             <th>Name</th>
             <th>Item Price</th>
             <th>Quantity</th>
-            <th>State</th>
+            <th>Time to edit</th>
+            <th>Issued</th>
         </tr>
     </thead>
 
@@ -19,8 +20,9 @@
         <tr *ngFor="let order of orders" [ngClass]="{'buy': order.is_buy_order}">
             <td>{{order.type_id}}</td>
             <td>{{order.price | number:'3.2-2'}}</td>
-            <td>{{order.quantity}}</td>
-            <td>{{order.state}}</td>
+            <td>{{order.volume_remain}}/{{order.volume_total}}</td>
+            <td>{{order.can_change}}</td>
+            <td>{{order.issued}}</td>
         </tr>
     </tbody>
 </table>

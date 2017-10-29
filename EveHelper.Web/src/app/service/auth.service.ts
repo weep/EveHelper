@@ -28,6 +28,7 @@ export class AuthService {
 
     //this.refreshInterval = setInterval(() => this.refresh(), 10 * 1000 * 60);
     setInterval(() => this.tickDown(), 100);
+    this.refresh();
 
     this.lastRefresh = new Date();
     this.nextRefresh = new Date();
@@ -38,7 +39,7 @@ export class AuthService {
     var now = new Date();
     this.refreshCountdown = Math.round((this.nextRefresh.getTime() - now.getTime()) / 1000);
     //console.log(this.refreshCountdown);
-    if (this.refreshCountdown < 0)
+    if (this.refreshCountdown > 0)
       this.refresh();
   }
 

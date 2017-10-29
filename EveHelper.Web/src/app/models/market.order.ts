@@ -4,7 +4,7 @@ export class MarketOrder {
     escrow: number;
     is_buy_order: boolean;
     is_corp: boolean;
-    issued: Date;
+    issued: string;
     location_id: number;
     min_volume: number;
     order_id: number;
@@ -15,4 +15,5 @@ export class MarketOrder {
     type_id: number;
     volume_remain: number;
     volume_total: number;
+    can_change: number;
 }
