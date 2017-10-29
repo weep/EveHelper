@@ -45,8 +45,20 @@ export class AuthService {
 
   authorize() {
     console.log(this.scopes);
-    var completeLoginUrl = `https://${this.loginUrl}/oauth/authorize?response_type=${this.responseType}&redirect_uri=${this.callbackUrl}&client_id=${this.clientId}&scope=${this.scopes}`;
+    var state = this.guid();
+    window.localStorage.setItem("login_state", state);
+    var completeLoginUrl = `https://${this.loginUrl}/oauth/authorize?response_type=${this.responseType}&redirect_uri=${this.callbackUrl}&client_id=${this.clientId}&scope=${this.scopes}&state=${state}`;
     window.location.href = completeLoginUrl;
+  }
+
+  guid(): string {
+    function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+      s4() + '-' + s4() + s4() + s4();
   }
 
   private refresh() {
