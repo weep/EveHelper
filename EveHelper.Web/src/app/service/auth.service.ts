@@ -17,7 +17,7 @@ export class AuthService {
 
   private refreshInterval;
   private _character: Character;
-  private characterLoading: boolean = false;
+  private characterLoading: boolean = true;
 
   private lastRefresh: Date;
   private nextRefresh: Date;
@@ -61,6 +61,7 @@ export class AuthService {
         "refreshToken": this.accessToken.refresh_token,
       }).map(token => {
         this.setAccessToken(token);
+        this.characterLoading = false;
         return token
       }).subscribe();
     }
