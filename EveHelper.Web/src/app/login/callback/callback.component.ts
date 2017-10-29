@@ -27,7 +27,8 @@ export class CallbackComponent implements OnInit {
       console.log(params);
       let code = params.code;
       if (code === undefined) {
-        this.router.navigate(["/"]);
+        return;
+        //this.router.navigate(["/"]);
       }
 
       this.as.token(code).subscribe(() => {

@@ -26,7 +26,10 @@ export class EveapiService {
 
   get<T>(path: string): Observable<T> {
     return this.http.get<T>("http://localhost:4201/latest/" + path, {
-      headers: new HttpHeaders({ "Authorization": "Bearer " + this.authService.accessToken.access_token })
+      headers: new HttpHeaders({
+        "Authorization": "Bearer " + this.authService.accessToken.access_token,
+        "Cache-Control": "max-age=300"
+      })
     });
   }
 

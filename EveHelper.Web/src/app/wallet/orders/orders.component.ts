@@ -21,9 +21,8 @@ export class OrdersComponent implements OnInit {
   }
 
   refresh() {
-    debugger;
     if (this.orders) {
-      this.eveapi.get("characters/" + this.eveapi.character.CharacterID + "/orders?from_id=" + this.orders[0].order_id ).subscribe((data: MarketOrder[]) => {
+      this.eveapi.get("characters/" + this.eveapi.character.CharacterID + "/orders?from_id=" + this.orders[0].order_id).subscribe((data: MarketOrder[]) => {
         console.log(data);
         this.orders = data;
       });

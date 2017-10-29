@@ -9,4 +9,5 @@
         </ul>
     </div>
 </nav>
-<router-outlet *ngIf="authService.characterLoaded"></router-outlet>
+<router-outlet *ngIf="authService.characterLoaded" view></router-outlet>
+<app-callback *ngIf="!authService.characterLoaded"></app-callback>
