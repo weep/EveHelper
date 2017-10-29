@@ -39,7 +39,7 @@ export class AuthService {
     var now = new Date();
     this.refreshCountdown = Math.round((this.nextRefresh.getTime() - now.getTime()) / 1000);
     //console.log(this.refreshCountdown);
-    if (this.refreshCountdown > 0)
+    if (this.refreshCountdown < 0)
       this.refresh();
   }
 

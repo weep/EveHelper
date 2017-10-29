@@ -32,13 +32,7 @@ export class CallbackComponent implements OnInit {
 
       this.as.token(code).subscribe(() => {
         this.as.loadCharacter().subscribe(char => {
-          this.ias.post("api/character", {
-            "id": char.CharacterID,
-            "name": char.CharacterName,
-            "portraitUrl": ""
-          }).subscribe(data => {
-            this.router.navigate(["/"]);
-          });
+          this.router.navigate(["/"]);
         });
       });
     });
