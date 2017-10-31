@@ -1,0 +1,19 @@
+<div class="container">
+    <h1>Paths</h1>
+    <div class="row">
+        <div class="col s4">
+            <div *ngFor="let path of paths" (click)="select(path)">
+                {{path | json}}
+            </div>
+        </div>
+        <div class="col s8">
+            <div *ngIf="selectedPath">
+                {{selectedPath | json}}
+                <div *ngFor="let key of selectedPath">
+                    <h4>{{key}}</h4>
+                    {{selectedPath[key] | json}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

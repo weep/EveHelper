@@ -34,8 +34,10 @@ export class EveapiService {
   }
 
   post<T>(path: string, object: any): Observable<T> {
-    return this.http.post<T>("http://localhost:4201/latest/" + path, object, {
-      headers: new HttpHeaders({ "Authorization": "Bearer " + this.authService.accessToken.access_token })
+    return this.http.post<T>("http://localhost:4201/latest/" + path, JSON.stringify(object), {
+      headers: new HttpHeaders({
+        "Authorization": "Bearer " + this.authService.accessToken.access_token
+      })
     });
   }
 }

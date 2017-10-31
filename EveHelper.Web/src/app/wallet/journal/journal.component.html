@@ -1,0 +1,6 @@
+<div>
+    <h1>Journal <button class="btn" (click)="refresh()">Refresh</button></h1>
+</div>
+<div *ngIf="journal">
+    {{journal | json}}
+</div>

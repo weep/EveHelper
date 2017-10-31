@@ -10,6 +10,9 @@ import { WalletComponent } from './wallet/wallet.component';
 import { TransactionsComponent } from './wallet/transactions/transactions.component';
 import { OrdersComponent } from './wallet/orders/orders.component';
 import { RedirectComponent } from './login/redirect/redirect.component';
+import { JournalComponent } from './wallet/journal/journal.component';
+import { AssetsComponent } from './assets/assets.component';
+import { PathsComponent } from './paths/paths.component';
 
 const routes: Routes = [{
   path: '',
@@ -34,8 +37,18 @@ const routes: Routes = [{
     {
       path: 'orders',
       component: OrdersComponent
+    },
+    {
+      path: 'journal',
+      component: JournalComponent
     }
   ]
+},{
+  path: 'assets',
+  component: AssetsComponent
+},{
+  path: 'paths',
+  component: PathsComponent
 }];
 
 @NgModule({

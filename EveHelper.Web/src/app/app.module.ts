@@ -17,6 +17,8 @@ import { TransactionsComponent } from './wallet/transactions/transactions.compon
 import { OrdersComponent } from './wallet/orders/orders.component';
 import { RedirectComponent } from './login/redirect/redirect.component';
 import { InternalapiService } from './service/internal/internalapi.service';
+import { JournalComponent } from './wallet/journal/journal.component';
+import { PathsComponent } from './paths/paths.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { InternalapiService } from './service/internal/internalapi.service';
     CharacterComponent,
     TransactionsComponent,
     OrdersComponent,
-    RedirectComponent
+    RedirectComponent,
+    JournalComponent,
+    PathsComponent
   ],
   imports: [
     BrowserModule,

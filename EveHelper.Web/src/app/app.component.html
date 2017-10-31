@@ -3,6 +3,8 @@
     <div class="nav-wrapper container">
         <a routerLink="/" routerLinkActive="active" class="brand-logo" *ngIf="authService.characterLoaded">{{authService.character.CharacterName}}</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a routerLink="/paths" routerLinkActive="active">paths</a></li>
+            <li><a routerLink="/assets" routerLinkActive="active">Assets</a></li>
             <li><a routerLink="/wallet" routerLinkActive="active">Wallet</a></li>
             <li *ngIf="authService.isAuthorized()"><a routerLink="/login" routerLinkActive="active">Login info</a></li>
             <li *ngIf="!authService.isAuthorized()"><a (click)="login()">Login</a></li>

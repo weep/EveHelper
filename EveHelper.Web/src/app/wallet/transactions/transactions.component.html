@@ -17,32 +17,14 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1 Day</td>
-                <td>{{stats.Daily.buy.sum | number:'.2-2'}} M</td>
-                <td>{{stats.Daily.sell.sum | number:'.2-2'}} M</td>
-                <td>{{stats.Daily.diff.sum | number:'.2-2'}} M</td>
-                <td>{{stats.Daily.revenue | number:'.2-2'}} M</td>
-                <td>{{stats.Daily.diff.percent | number:'.2-2'}} %</td>
-                <td>{{stats.Daily.count | number:'.2-2'}}</td>
-            </tr>
-            <tr>
-                <td>1 Week</td>
-                <td>{{stats.Weekly.buy.sum | number:'.2-2'}} M</td>
-                <td>{{stats.Weekly.sell.sum | number:'.2-2'}} M</td>
-                <td>{{stats.Weekly.diff.sum | number:'.2-2'}} M</td>
-                <td>{{stats.Weekly.revenue | number:'.2-2'}} M</td>
-                <td>{{stats.Weekly.diff.percent | number:'.2-2'}} %</td>
-                <td>{{stats.Weekly.count | number:'.2-2'}}</td>
-            </tr>
-            <tr>
-                <td>1 Month</td>
-                <td>{{stats.Monthly.buy.sum | number:'.2-2'}} M</td>
-                <td>{{stats.Monthly.sell.sum | number:'.2-2'}} M</td>
-                <td>{{stats.Monthly.diff.sum | number:'.2-2'}} M</td>
-                <td>{{stats.Monthly.revenue | number:'.2-2'}} M</td>
-                <td>{{stats.Monthly.diff.percent | number:'.2-2'}} %</td>
-                <td>{{stats.Monthly.count | number:'.2-2'}}</td>
+            <tr *ngFor="let stat of stats.periods">
+                <td>{{stat.name}}</td>
+                <td>{{stat.data.buy.sum | number:'.2-2'}} M</td>
+                <td>{{stat.data.sell.sum | number:'.2-2'}} M</td>
+                <td>{{stat.data.diff.sum | number:'.2-2'}} M</td>
+                <td>{{stat.data.revenue | number:'.2-2'}} M</td>
+                <td>{{stat.data.diff.percent | number:'.2-2'}} %</td>
+                <td>{{stat.data.count | number:'.2-2'}}</td>
             </tr>
         </tbody>
     </table>

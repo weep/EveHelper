@@ -4,6 +4,7 @@ export class Transactionstats {
     private _dailyStats;
     private _weeklyStats;
     private _monthlyStats;
+    private periods: any[];
 
     constructor(private tr: Transaction[]) {
         this.refresh();
@@ -15,6 +16,17 @@ export class Transactionstats {
         this._weeklyStats = this.gatherStats(this.tr.filter(f => new Date(Date.parse(f.date)) > this.now.week));
         this._monthlyStats = this.gatherStats(this.tr.filter(f => new Date(Date.parse(f.date)) > this.now.month));
         console.timeEnd("Calculating stats");
+
+        this.periods = [{
+            "name": "1 day",
+            "data": this._dailyStats
+        }, {
+            "name": "1 week",
+            "data": this._weeklyStats
+        }, {
+            "name": "1 month",
+            "data": this._monthlyStats
+        }];
     }
 
     gatherStats(transactions: Transaction[]) {
@@ -42,7 +54,7 @@ export class Transactionstats {
         };
 
         ret.diff.sum = ret.sell.sum - ret.buy.sum;
-        ret.diff.percent = ret.sell.sum === 0 ? 0 : ret.sell.sum / ret.buy.sum;
+        ret.diff.percent = ret.sell.sum === 0 ? 0 : 100 * ((ret.sell.sum - ret.buy.sum) / ret.buy.sum);
         ret.revenue = ret.buy.sum + ret.sell.sum;
         return ret;
     }
