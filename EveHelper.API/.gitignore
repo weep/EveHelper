@@ -3,8 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-/assets/bsd
-/assets/fsd
+assets/bsd
+assets/fsd
+assets.7z
 
 # User-specific files
 *.suo

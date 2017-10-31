@@ -20,6 +20,7 @@ namespace EveHelper.API
         {
             Configuration = configuration;
 
+
         }
 
         public IConfiguration Configuration { get; }
