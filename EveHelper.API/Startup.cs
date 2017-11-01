@@ -37,6 +37,7 @@ namespace EveHelper.API
             });
 
             services.AddTransient<ICharacterRepository, CharacterRepository>();
+            services.AddTransient<IPusherRepository, PusherRepository>();
 
             services.AddCors(o => o.AddPolicy("EveHelperPolicy", builder =>
             {

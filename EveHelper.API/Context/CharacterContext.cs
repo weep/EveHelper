@@ -8,15 +8,10 @@ using System.Threading.Tasks;
 
 namespace EveHelper.API.Context
 {
-    public class CharacterContext
+    public class CharacterContext : MongoContext
     {
-        private readonly IMongoDatabase _database = null;
-
-        public CharacterContext(IOptions<DbSettings> settings)
+        public CharacterContext(IOptions<DbSettings> settings) : base(settings)
         {
-            var client = new MongoClient(settings.Value.ConnectionString);
-            if (client != null)
-                _database = client.GetDatabase(settings.Value.Database);
         }
 
         public IMongoCollection<CharacterModel> Characters

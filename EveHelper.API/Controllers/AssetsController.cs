@@ -13,6 +13,8 @@ using Microsoft.Extensions.Caching.Memory;
 using YamlDotNet.RepresentationModel;
 using System.Text.RegularExpressions;
 using YamlDotNet.Serialization.NamingConventions;
+using EveHelper.API.Repositories;
+using EveHelper.API.Interfaces;
 
 namespace EveHelper.API.Controllers
 {
@@ -21,9 +23,12 @@ namespace EveHelper.API.Controllers
     public class AssetsController : Controller
     {
         IMemoryCache _memoryCache;
-        public AssetsController(IMemoryCache memoryCache)
+        IPusherRepository _repo;
+
+        public AssetsController(IMemoryCache memoryCache, IPusherRepository repo)
         {
             _memoryCache = memoryCache;
+            _repo = repo;
         }
 
         [HttpGet("{*path}")]
@@ -96,14 +101,25 @@ namespace EveHelper.API.Controllers
             }
         }
 
-        private IActionResult GetCache(string path)
+        [HttpPost("load")]
+        public async Task LoadThatShizzle()
         {
-            return null;
-        }
+            var files = Directory.EnumerateFiles("./assets/fsd", "*.yaml", SearchOption.AllDirectories);
+            var sw = Stopwatch.StartNew();
 
-        private IActionResult SetPath(string path)
-        {
-            return null;
+            Parallel.ForEach(files, new ParallelOptions
+            {
+                //MaxDegreeOfParallelism = 1
+            }, async file =>
+            {
+                var ret = await Helpers.YamlToJson(file);
+                await _repo.InsertManyAsync(ret.name, ret.json);
+            });
+
+            sw.Stop();
+            Debug.WriteLine($"Parsing of all files took {sw.ElapsedMilliseconds} ms", "AssetsController");
+
+            await Task.CompletedTask;
         }
     }
 }
