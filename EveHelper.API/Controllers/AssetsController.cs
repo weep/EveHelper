@@ -101,10 +101,10 @@ namespace EveHelper.API.Controllers
             }
         }
 
-        [HttpPost("load")]
-        public async Task LoadThatShizzle()
+        [HttpPost("load/{folder?}")]
+        public async Task LoadThatShizzle(string folder = "")
         {
-            var files = Directory.EnumerateFiles("./assets/fsd", "*.yaml", SearchOption.AllDirectories);
+            var files = Directory.EnumerateFiles($"./assets/{folder}", "*.yaml", SearchOption.AllDirectories);
             var sw = Stopwatch.StartNew();
 
             Parallel.ForEach(files, new ParallelOptions
