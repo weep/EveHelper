@@ -1,36 +1,37 @@
 version: '3'
 services:
-    mongo:
-        image: mongo:latest
-        hostname: evehelper_db
-        ports:
-          - "27017:27017"
-        environment:
-          - MONGO_INITDB_ROOT_USERNAME=admin
-          - MONGO_INITDB_ROOT_PASSWORD=admin
-          - MONGO_INITDB_DATABASE=admin
+  mongo:
+    image: mongo:latest
+    restart: "always"
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+      - MONGO_INITDB_DATABASE=admin
 
-    mongo_client:
-        image: mongoclient/mongoclient
-        hostname: mongo-client
-        ports:
-          - "8084:3000"
-        depends_on:
-          - mongo
-        environment:
-          - MONGOCLIENT_DEFAULT_CONNECTION_URL=mongodb://admin:admin@mongo:27017
-          - VIRTUAL_HOST=mc.eh.local
-          
-    proxy:
-        build:
-          context:  ./EveHelper.Proxy
-          dockerfile: Dockerfile
-        ports:
-          - "81:80"
-          
-    #web:
-    #    build:
-    #      context: ./EveHelper.Web
-    #      dockerfile: Dockerfile
-    #    environment:
-    #      - VIRTUAL_HOST=eh.local
+  mongo_client:
+    image: mongoclient/mongoclient
+    restart: "always"
+    ports:
+      - "8084:3000"
+    depends_on:
+      - mongo
+    environment:
+      - MONGOCLIENT_DEFAULT_CONNECTION_URL=mongodb://admin:admin@mongo:27017
+      - VIRTUAL_HOST=mc.eh.local
+
+  proxy:
+    restart: "always"
+    build:
+      context:  ./EveHelper.Proxy
+      dockerfile: Dockerfile
+    ports:
+      - "81:80"
+      
+  #web:
+  #    build:
+  #      context: ./EveHelper.Web
+  #      dockerfile: Dockerfile
+  #    environment:
+  #      - VIRTUAL_HOST=eh.local
