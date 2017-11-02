@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.character();
+    this.character();
   }
 
   test() {

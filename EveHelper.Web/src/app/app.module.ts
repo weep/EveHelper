@@ -19,6 +19,8 @@ import { RedirectComponent } from './login/redirect/redirect.component';
 import { InternalapiService } from './service/internal/internalapi.service';
 import { JournalComponent } from './wallet/journal/journal.component';
 import { PathsComponent } from './paths/paths.component';
+import { MiningComponent } from './mining/mining.component';
+import { FleetorganizerComponent } from './mining/fleetorganizer/fleetorganizer.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { PathsComponent } from './paths/paths.component';
     OrdersComponent,
     RedirectComponent,
     JournalComponent,
-    PathsComponent
+    PathsComponent,
+    MiningComponent,
+    FleetorganizerComponent
   ],
   imports: [
     BrowserModule,

@@ -14,11 +14,11 @@ export class AssetsComponent implements OnInit {
   ngOnInit() {
   }
 
-  refresh(){
+  refresh() {
     this.eveapi.get("characters/" + this.eveapi.character.CharacterID + "/assets/").subscribe((data: any[]) => {
       console.log(data);
-      this.assets = data.slice(0,10);
-      this.eveapi.post("characters/" + this.eveapi.character.CharacterID + "/assets/names/",{
+      this.assets = data.slice(0, 10);
+      this.eveapi.post("characters/" + this.eveapi.character.CharacterID + "/assets/names/", {
         "item_ids": this.assets.map(a => a.item_id)
       }).subscribe((names: any[]) => {
         names.map(x => Object.assign(x, this.assets.find(a => a.item_id == x.item_id)));

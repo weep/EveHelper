@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row">
+        <h1>
+            Fleet - {{key}}
+            <button *ngIf="key" class="btn danger" (click)="leave()">Leave</button>
+            <button class="btn" (click)="create()">Create</button>
+            <button class="btn" (click)="toggleJoin()">Join</button>
+            <button class="btn" (click)="toggleAdmin()">Admin</button>
+        </h1>
+        <div *ngIf="joining">
+            <input class="input-field inpjoin">
+            <button class="btn" (click)="join()">Excecute</button>
+        </div>
+    </div>
+    <div class="row">
+        <textarea #fs></textarea>
+        <button class="btn" (click)="add(fs.value)">Add</button>
+    </div>
+    <div class="row">
+        <table class="compact">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Est Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of items">
+                    <td>{{item.name}}</td>
+                    <td>{{item.amount}}</td>
+                    <td>{{item.estValue}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

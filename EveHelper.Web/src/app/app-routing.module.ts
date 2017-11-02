@@ -13,6 +13,8 @@ import { RedirectComponent } from './login/redirect/redirect.component';
 import { JournalComponent } from './wallet/journal/journal.component';
 import { AssetsComponent } from './assets/assets.component';
 import { PathsComponent } from './paths/paths.component';
+import { MiningComponent } from './mining/mining.component';
+import { FleetorganizerComponent } from './mining/fleetorganizer/fleetorganizer.component';
 
 const routes: Routes = [{
   path: '',
@@ -43,12 +45,19 @@ const routes: Routes = [{
       component: JournalComponent
     }
   ]
-},{
+}, {
   path: 'assets',
   component: AssetsComponent
-},{
+}, {
   path: 'paths',
   component: PathsComponent
+}, {
+  path: 'mining',
+  component: MiningComponent,
+  children: [{
+    path: 'fleet',
+    component: FleetorganizerComponent
+  }]
 }];
 
 @NgModule({
