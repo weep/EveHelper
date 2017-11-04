@@ -6,3 +6,4 @@ C:\Projects\EveHelper\EveHelper\EveHelper.Db\obj\Debug\netcoreapp2.0\EveHelper.D
 C:\Projects\EveHelper\EveHelper\EveHelper.Db\obj\Debug\netcoreapp2.0\EveHelper.Db.AssemblyInfo.cs
 C:\Projects\EveHelper\EveHelper\EveHelper.Db\obj\Debug\netcoreapp2.0\EveHelper.Db.dll
 C:\Projects\EveHelper\EveHelper\EveHelper.Db\obj\Debug\netcoreapp2.0\EveHelper.Db.pdb
+C:\Projects\EveHelper\EveHelper\EveHelper.Db\obj\Debug\netcoreapp2.0\EveHelper.Db.csprojResolveAssemblyReference.cache
