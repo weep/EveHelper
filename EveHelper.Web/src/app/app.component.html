@@ -1,16 +1,14 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <nav>
     <div class="nav-wrapper container">
-        <a routerLink="/" routerLinkActive="active" class="brand-logo" *ngIf="authService.characterLoaded">{{authService.character.CharacterName}}</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <a routerLink="/" routerLinkActive="active" class="brand-logo" *ngIf="authService.characterSelected">{{authService.character.CharacterName}}</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down" *ngIf="authService.characterSelected">
             <li><a routerLink="/paths" routerLinkActive="active">paths</a></li>
             <li><a routerLink="/mining" routerLinkActive="active">mining</a></li>
             <li><a routerLink="/assets" routerLinkActive="active">Assets</a></li>
             <li><a routerLink="/wallet" routerLinkActive="active">Wallet</a></li>
-            <li *ngIf="authService.isAuthorized()"><a routerLink="/login" routerLinkActive="active">Login info</a></li>
-            <li *ngIf="!authService.isAuthorized()"><a (click)="login()">Login</a></li>
+            <li><a routerLink="/login" routerLinkActive="active">Charaters</a></li>
         </ul>
     </div>
 </nav>
-<router-outlet *ngIf="authService.characterLoaded" view></router-outlet>
-<app-callback *ngIf="!authService.characterLoaded"></app-callback>
+<router-outlet></router-outlet>

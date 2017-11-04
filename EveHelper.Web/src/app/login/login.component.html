@@ -1,24 +1,26 @@
 <div class="container">
-    <div *ngIf="!authService.isAuthorized()">
-        <h2>Login</h2>
-        <div class="row">
-            <div class="col s12">
-                <button (click)="authorize()" class="btn">Login</button>
-            </div>
-        </div>
-    </div>
-    <div *ngIf="authService.isAuthorized()">
-        <h2>Already logged in!</h2>
-        <div class="col s12">
-            {{code}}
-            <button (click)="logout()" class="btn">Logout</button>
-        </div>
-        <div class="col s12">
-            {{authService.character | json}}
-        </div>
-    </div>
-    <div>
-        <div><button class="btn" (click)="getResponseGetChar()">Get Char from API</button></div>
-        {{responseGetChar | json}}
+    <div *ngIf="characters">
+        <h3>Characters</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Hash</th>
+                    <th class="right-align"><button class="btn" (click)="authorize()">Add</button></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let char of characters">
+                    <td>{{char.CharacterID}}</td>
+                    <td>{{char.CharacterName}}</td>
+                    <td>{{char.CharacterOwnerHash}}</td>
+                    <td class="right-align">
+                        <button class="btn" (click)="activate(char)" [ngClass]="{'active': char.CharacterID == 'authService.character.CharacterID'}">Active</button>
+                        <button class="btn red" (click)="remove(char)">Remove</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

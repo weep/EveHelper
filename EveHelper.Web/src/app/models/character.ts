@@ -1,3 +1,5 @@
+import { AccessToken } from "./access-token";
+
 export class Character {
     CharacterID: number;
     CharacterName: string;
@@ -6,4 +8,5 @@ export class Character {
     TokenType: string;
     CharacterOwnerHash: string;
     IntellectualProperty: string;
+    Token: AccessToken
 }

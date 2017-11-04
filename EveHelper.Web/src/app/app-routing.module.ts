@@ -16,10 +16,52 @@ import { PathsComponent } from './paths/paths.component';
 import { MiningComponent } from './mining/mining.component';
 import { FleetorganizerComponent } from './mining/fleetorganizer/fleetorganizer.component';
 import { MiningLedgerComponent } from './mining/mining-ledger/mining-ledger.component';
+import { CharacterSelecterGuard } from './guards/character-selecter.guard';
+import { CharacterHomeComponent } from './home/character-home/character-home.component';
 
 const routes: Routes = [{
   path: '',
-  component: HomeComponent
+  component: HomeComponent,
+  canActivate: [
+    CharacterSelecterGuard
+  ],
+  children: [{
+    path: '',
+    component: CharacterHomeComponent
+  },{
+    path: 'wallet',
+    component: WalletComponent,
+    children: [
+      {
+        path: 'trans',
+        component: TransactionsComponent
+      },
+      {
+        path: 'orders',
+        component: OrdersComponent
+      },
+      {
+        path: 'journal',
+        component: JournalComponent
+      }
+    ]
+  }, {
+    path: 'assets',
+    component: AssetsComponent
+  }, {
+    path: 'paths',
+    component: PathsComponent
+  }, {
+    path: 'mining',
+    component: MiningComponent,
+    children: [{
+      path: '',
+      component: MiningLedgerComponent,
+    }, {
+      path: 'fleet',
+      component: FleetorganizerComponent
+    }]
+  }]
 }, {
   path: 'login',
   component: LoginComponent
@@ -29,39 +71,6 @@ const routes: Routes = [{
 }, {
   path: 'auth/callback',
   component: CallbackComponent
-}, {
-  path: 'wallet',
-  component: WalletComponent,
-  children: [
-    {
-      path: 'trans',
-      component: TransactionsComponent
-    },
-    {
-      path: 'orders',
-      component: OrdersComponent
-    },
-    {
-      path: 'journal',
-      component: JournalComponent
-    }
-  ]
-}, {
-  path: 'assets',
-  component: AssetsComponent
-}, {
-  path: 'paths',
-  component: PathsComponent
-}, {
-  path: 'mining',
-  component: MiningComponent,
-  children: [{
-    path: '',
-    component: MiningLedgerComponent,
-  }, {
-    path: 'fleet',
-    component: FleetorganizerComponent
-  }]
 }];
 
 @NgModule({

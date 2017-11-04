@@ -17,4 +17,12 @@ export class MiningLedgerComponent implements OnInit {
     });
   }
 
+  days(): string[]{
+    var days = this.ledger.filter((val, index, self) => {
+      return self.indexOf(val) === index;
+    }).map(a => a.date);
+
+    return days;
+  }
+
 }

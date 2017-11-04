@@ -29,7 +29,7 @@ export class EveapiService {
     console.log(path);
     return this.http.get<T>(path, {
       headers: new HttpHeaders({
-        "Authorization": "Bearer " + this.authService.accessToken.access_token,
+        "Authorization": "Bearer " + this.authService.accessToken,
         "Cache-Control": "max-age=300"
       })
     });
@@ -39,7 +39,7 @@ export class EveapiService {
     var path = "http://localhost:4201/latest" + (path[0] === "/" ? "" : "/") + path;
     return this.http.post<T>(path, JSON.stringify(object), {
       headers: new HttpHeaders({
-        "Authorization": "Bearer " + this.authService.accessToken.access_token
+        "Authorization": "Bearer " + this.authService.accessToken
       })
     });
   }

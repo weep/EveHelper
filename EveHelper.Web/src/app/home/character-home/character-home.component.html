@@ -1,0 +1,17 @@
+<div class="container">
+    <h2>Eve Helper</h2>
+    <div *ngIf="characterData">
+        <h3>{{characterData.CharacterName}} - {{characterData.CharacterID}}</h3>
+        <div>
+            <h2>F-F-FFreestylah</h2>
+            <h6>rakkamakkaphone</h6>
+            <input #fs placeholder="characters/{character_id}/wallet/"><button class="btn" (click)="execGet(fs.value)">Get</button>
+            <button class="btn" (click)="execPut(fs.value)">Post</button>
+            <button disabled class="btn" (click)="execPost(fs.value)">Put</button>
+            <button disabled class="btn" (click)="execDelete(fs.value)">Delete</button>
+            <div>
+                {{fsData | json}}
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,6 +12,7 @@ import { InternalapiService } from '../../service/internal/internalapi.service';
 })
 export class CallbackComponent implements OnInit {
   private status = "loading";
+  private hasCode = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -23,26 +24,30 @@ export class CallbackComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.activatedRoute.queryParams.subscribe(params => {
-      console.log(params);
       let code = params.code;
       let state = params.state;
       if (code === undefined) {
         return;
         //this.router.navigate(["/"]);
       }
+      this.hasCode = true;
+      console.log("Code", code);
 
-      let expectedState = window.localStorage.getItem("login_state");
-      if (expectedState != state) {
-        this.status = "WRONG STATE";
-        return;
-      }
-      else{
-        window.localStorage.removeItem("login_state");
-      }
+      //let expectedState = window.localStorage.getItem("login_state");
+      //if (expectedState != state) {
+      //  this.status = "WRONG STATE";
+      //  return;
+      //}
+      //else {
+      //  window.localStorage.removeItem("login_state");
+      //}
 
-      this.as.token(code).subscribe(() => {
-        this.as.loadCharacter().subscribe(char => {
+      this.as.token(code).subscribe(token => {
+        console.log("Auth token", token);
+        this.as.loadCharacter(token).subscribe(char => {
+          console.log("Character", char);
           this.router.navigate(["/"]);
         });
       });
