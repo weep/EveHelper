@@ -22,6 +22,7 @@ import { PathsComponent } from './paths/paths.component';
 import { MiningComponent } from './mining/mining.component';
 import { FleetorganizerComponent } from './mining/fleetorganizer/fleetorganizer.component';
 import { ClaimComponent } from './mining/fleetorganizer/claim/claim.component';
+import { MiningLedgerComponent } from './mining/mining-ledger/mining-ledger.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ClaimComponent } from './mining/fleetorganizer/claim/claim.component';
     PathsComponent,
     MiningComponent,
     FleetorganizerComponent,
-    ClaimComponent
+    ClaimComponent,
+    MiningLedgerComponent
   ],
   imports: [
     BrowserModule,

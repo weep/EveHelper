@@ -15,6 +15,7 @@ import { AssetsComponent } from './assets/assets.component';
 import { PathsComponent } from './paths/paths.component';
 import { MiningComponent } from './mining/mining.component';
 import { FleetorganizerComponent } from './mining/fleetorganizer/fleetorganizer.component';
+import { MiningLedgerComponent } from './mining/mining-ledger/mining-ledger.component';
 
 const routes: Routes = [{
   path: '',
@@ -53,10 +54,10 @@ const routes: Routes = [{
   component: PathsComponent
 }, {
   path: 'mining',
+  component: MiningComponent,
   children: [{
     path: '',
-    pathMatch: 'full',
-    redirectTo: 'fleet'
+    component: MiningLedgerComponent,
   }, {
     path: 'fleet',
     component: FleetorganizerComponent
