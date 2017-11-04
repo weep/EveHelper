@@ -21,6 +21,7 @@ import { JournalComponent } from './wallet/journal/journal.component';
 import { PathsComponent } from './paths/paths.component';
 import { MiningComponent } from './mining/mining.component';
 import { FleetorganizerComponent } from './mining/fleetorganizer/fleetorganizer.component';
+import { ClaimComponent } from './mining/fleetorganizer/claim/claim.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { FleetorganizerComponent } from './mining/fleetorganizer/fleetorganizer.
     JournalComponent,
     PathsComponent,
     MiningComponent,
-    FleetorganizerComponent
+    FleetorganizerComponent,
+    ClaimComponent
   ],
   imports: [
     BrowserModule,

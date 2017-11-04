@@ -1,33 +1,24 @@
 version: '3'
 services:
-  mongo:
-    image: mongo:latest
-    restart: "always"
-    ports:
-      - "27017:27017"
+  pg:
+    image: postgres
+    restart: always
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=admin
-      - MONGO_INITDB_DATABASE=admin
-
-  mongo_client:
-    image: mongoclient/mongoclient
-    restart: "always"
+      POSTGRES_PASSWORD: example
+            
+  pga:
+    image: chorss/docker-pgadmin4
+    restart: always
     ports:
-      - "8084:3000"
-    depends_on:
-      - mongo
-    environment:
-      - MONGOCLIENT_DEFAULT_CONNECTION_URL=mongodb://admin:admin@mongo:27017
-      - VIRTUAL_HOST=mc.eh.local
+      - "5050:5050"
 
-  proxy:
-    restart: "always"
-    build:
-      context:  ./EveHelper.Proxy
-      dockerfile: Dockerfile
-    ports:
-      - "81:80"
+  #proxy:
+  #  restart: "always"
+  #  build:
+  #    context:  ./EveHelper.Proxy
+  #    dockerfile: Dockerfile
+  #  ports:
+  #    - "81:80"
       
   #web:
   #    build:

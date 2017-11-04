@@ -53,8 +53,11 @@ const routes: Routes = [{
   component: PathsComponent
 }, {
   path: 'mining',
-  component: MiningComponent,
   children: [{
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'fleet'
+  }, {
     path: 'fleet',
     component: FleetorganizerComponent
   }]

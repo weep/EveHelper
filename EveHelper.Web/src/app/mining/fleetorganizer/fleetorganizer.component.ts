@@ -9,8 +9,12 @@ export class FleetorganizerComponent implements OnInit {
   private key: string;
   private joining: boolean = false;
   private items: any[];
+  private groups: any[];
+  private admin: boolean = false;
 
-  constructor() { 
+  private claims: any[];
+
+  constructor() {
     this.items = [];
   }
 
@@ -25,27 +29,53 @@ export class FleetorganizerComponent implements OnInit {
     this.key = "";
   }
 
+  join(key: string) {
+    this.key = key;
+    this.toggleJoin();
+  }
+
   toggleJoin() {
     this.joining = !this.joining;
   }
 
-  add(itemString: string) {    
+  toggleAdmin() {
+    this.admin = !this.admin;
+  }
+
+  add(itemString: string) {
     let items = itemString.replace(/\t+/, "\t").split(/\n/) as any[];
     for (let itemString of items) {
-      let match = itemString.match(/(.*)\t(.*)\t(.*)\t(.*)\t(.*)/)
-      
+      let match = itemString.match(/(.*)\t(.*)\t(.*)\t(.*)\t(.*)/);
+
       let item = {
         name: match[1],
-        amount: match[2],
+        amount: parseFloat(match[2].replace(/\s/g, "")),
         group: match[3],
         size: match[4],
-        estValue: match[5]
+        estValue: parseFloat(match[5].replace(/\s/g,"").replace(/\sISK/g,"").replace(",","."))
       }
+      console.log(item);
 
       this.items.push(item);
-
-      console.log(item);
     }
+
+    this.groups = this.group(this.items);
+  }
+
+  group(itemsArray: any[]) {
+    var groups = {};
+    for (let item of itemsArray) {
+      if (!groups[item.group]) groups[item.group] = [];
+      groups[item.group].push(item);
+    }
+    var array = [];
+    for (let groupName in groups) {
+      var items = groups[groupName] as any[];
+      array.push({ name: groupName, items: groups[groupName], sum: items.reduce((sum, i) => { return sum + i.amount; }, 0) });
+    }
+    console.log(array);
+
+    return array;
   }
 
   get UniqueKey() {

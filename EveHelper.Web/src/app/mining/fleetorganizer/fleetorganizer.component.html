@@ -2,21 +2,26 @@
     <div class="row">
         <h1>
             Fleet - {{key}}
-            <button *ngIf="key" class="btn danger" (click)="leave()">Leave</button>
+            <button *ngIf="key" class="btn red" (click)="leave()">Leave</button>
             <button class="btn" (click)="create()">Create</button>
             <button class="btn" (click)="toggleJoin()">Join</button>
-            <button class="btn" (click)="toggleAdmin()">Admin</button>
+            <button class="btn" (click)="toggleAdmin()" class="btn red" [ngClass]="{ 'lighten-5': !admin }">Admin</button>
         </h1>
         <div *ngIf="joining">
-            <input class="input-field inpjoin">
-            <button class="btn" (click)="join()">Excecute</button>
+            <input #inp class="input-field inpjoin">
+            <button class="btn" (click)="join(inp.value)">Excecute</button>
         </div>
     </div>
     <div class="row">
-        <textarea #fs></textarea>
+        <textarea #fs>Concentrated Veldspar	592 683	Veldspar	59 268,30 m3	8 943 586,47 ISK
+Dense Veldspar	139 512	Veldspar	13 951,20 m3	2 221 031,04 ISK
+Plagioclase	55 607	Plagioclase	19 462,45 m3	3 405 372,68 ISK
+Solid Pyroxeres	15 714	Pyroxeres	4 714,20 m3	773 600,22 ISK
+Veldspar	626 031	Veldspar	62 603,10 m3	9 334 122,21 ISK
+Viscous Pyroxeres	41 669	Pyroxeres	12 500,70 m3	2 202 623,34 ISK</textarea>
         <button class="btn" (click)="add(fs.value)">Add</button>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="groups">
         <table class="compact">
             <thead>
                 <tr>
@@ -26,12 +31,26 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of items">
-                    <td>{{item.name}}</td>
-                    <td>{{item.amount}}</td>
-                    <td>{{item.estValue}}</td>
+                <tr *ngFor="let group of groups">
+                    <td (click)="group.expanded = !group.expanded">{{group.name}}</td>
+                    <td>
+                        <div *ngIf="!group.expanded">{{group.sum}}</div>
+                        <div *ngIf="group.expanded">
+                            <table>
+                                <tbody>
+                                    <tr *ngFor="let item of group.items">
+                                        <td>{{item.name}}</td>
+                                        <td>{{item.amount}}</td>
+                                        <td>{{item.estValue}} ISK</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                    <td>{{group.sum}} ISK</td>
                 </tr>
             </tbody>
         </table>
     </div>
+    <app-claim></app-claim>
 </div>
