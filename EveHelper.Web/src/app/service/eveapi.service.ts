@@ -25,7 +25,9 @@ export class EveapiService {
   }
 
   get<T>(path: string): Observable<T> {
-    return this.http.get<T>("http://localhost:4201/latest/" + path, {
+    var path = "http://localhost:4201/latest" + (path[0] === "/" ? "" : "/") + path;
+    console.log(path);
+    return this.http.get<T>(path, {
       headers: new HttpHeaders({
         "Authorization": "Bearer " + this.authService.accessToken.access_token,
         "Cache-Control": "max-age=300"
@@ -34,7 +36,8 @@ export class EveapiService {
   }
 
   post<T>(path: string, object: any): Observable<T> {
-    return this.http.post<T>("http://localhost:4201/latest/" + path, JSON.stringify(object), {
+    var path = "http://localhost:4201/latest" + (path[0] === "/" ? "" : "/") + path;
+    return this.http.post<T>(path, JSON.stringify(object), {
       headers: new HttpHeaders({
         "Authorization": "Bearer " + this.authService.accessToken.access_token
       })
