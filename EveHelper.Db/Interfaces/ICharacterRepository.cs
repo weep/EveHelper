@@ -1,10 +1,10 @@
-﻿using EveHelper.API.Models;
+﻿using EveHelper.Db.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EveHelper.API.Interfaces
+namespace EveHelper.Db.Interfaces
 {
     public interface ICharacterRepository
     {

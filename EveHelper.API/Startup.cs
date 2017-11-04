@@ -9,8 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Http;
-using EveHelper.API.Interfaces;
-using EveHelper.API.Repositories;
+using EveHelper.Db.Interfaces;
+using EveHelper.Db.Repositories;
+using EveHelper.Db;
 
 namespace EveHelper.API
 {
@@ -19,8 +20,6 @@ namespace EveHelper.API
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
-
         }
 
         public IConfiguration Configuration { get; }

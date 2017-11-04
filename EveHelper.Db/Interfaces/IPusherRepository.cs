@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EveHelper.API.Interfaces
+namespace EveHelper.Db.Interfaces
 {
     public interface IPusherRepository
     {

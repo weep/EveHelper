@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EveHelper.API.Models.fsd
+namespace EveHelper.Db.Models.fsd
 {
-    public interface IQuantity
+    public interface ITime
     {
-        int Quantity { get; set; }
+        int Time { get; set; }
     }
 }

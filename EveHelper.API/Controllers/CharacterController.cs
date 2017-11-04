@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using EveHelper.API.Interfaces;
-using EveHelper.API.Models;
+using EveHelper.Db.Interfaces;
+using EveHelper.Db.Models;
 using Newtonsoft.Json;
 using System.Net.Http;
 

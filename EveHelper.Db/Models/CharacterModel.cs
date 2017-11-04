@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace EveHelper.API.Models
+namespace EveHelper.Db.Models
 {
     public class CharacterModel
     {

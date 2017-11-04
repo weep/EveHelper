@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EveHelper.API.Context
+namespace EveHelper.Db.Context
 {
     public class MongoContext
     {

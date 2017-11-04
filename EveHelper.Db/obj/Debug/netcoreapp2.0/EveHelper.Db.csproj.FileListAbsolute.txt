@@ -1,0 +1,8 @@
+C:\Projects\EveHelper\EveHelper\EveHelper.Db\bin\Debug\netcoreapp2.0\EveHelper.Db.deps.json
+C:\Projects\EveHelper\EveHelper\EveHelper.Db\bin\Debug\netcoreapp2.0\EveHelper.Db.dll
+C:\Projects\EveHelper\EveHelper\EveHelper.Db\bin\Debug\netcoreapp2.0\EveHelper.Db.pdb
+C:\Projects\EveHelper\EveHelper\EveHelper.Db\obj\Debug\netcoreapp2.0\EveHelper.Db.csproj.CoreCompileInputs.cache
+C:\Projects\EveHelper\EveHelper\EveHelper.Db\obj\Debug\netcoreapp2.0\EveHelper.Db.AssemblyInfoInputs.cache
+C:\Projects\EveHelper\EveHelper\EveHelper.Db\obj\Debug\netcoreapp2.0\EveHelper.Db.AssemblyInfo.cs
+C:\Projects\EveHelper\EveHelper\EveHelper.Db\obj\Debug\netcoreapp2.0\EveHelper.Db.dll
+C:\Projects\EveHelper\EveHelper\EveHelper.Db\obj\Debug\netcoreapp2.0\EveHelper.Db.pdb

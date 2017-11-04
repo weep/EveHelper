@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Diagnostics;
-using MimeTypes;
 using Newtonsoft.Json;
 using YamlDotNet.Serialization;
 using Microsoft.Extensions.Caching.Memory;
-using YamlDotNet.RepresentationModel;
-using System.Text.RegularExpressions;
 using YamlDotNet.Serialization.NamingConventions;
-using EveHelper.API.Repositories;
-using EveHelper.API.Interfaces;
+using EveHelper.Db.Interfaces;
 
 namespace EveHelper.API.Controllers
 {
@@ -42,7 +36,6 @@ namespace EveHelper.API.Controllers
             {
                 FileInfo fi = new FileInfo(Path.Combine("./assets/", path));
                 if (!fi.Exists) return NotFound();
-                string mediaType = MimeTypeMap.GetMimeType(fi.Extension);
 
                 using (FileStream fileStream = System.IO.File.OpenRead(Path.Combine("./assets/", path)))
                 using (StreamReader sr = new StreamReader(fileStream))
@@ -85,7 +78,7 @@ namespace EveHelper.API.Controllers
                             using (MemoryStream ms = new MemoryStream())
                             {
                                 fileStream.CopyTo(ms);
-                                result = File(ms.ToArray(), mediaType);
+                                result = File(ms.ToArray(), "text/yaml");
                             }
                             break;
                     }
@@ -109,7 +102,7 @@ namespace EveHelper.API.Controllers
 
             Parallel.ForEach(files, new ParallelOptions
             {
-                //MaxDegreeOfParallelism = 1
+                MaxDegreeOfParallelism = 4
             }, async file =>
             {
                 var ret = await Helpers.YamlToJson(file);

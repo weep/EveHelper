@@ -1,4 +1,4 @@
-﻿using EveHelper.API.Models;
+﻿using EveHelper.Db.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using System;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EveHelper.API.Context
+namespace EveHelper.Db.Context
 {
     public class CharacterContext : MongoContext
     {
