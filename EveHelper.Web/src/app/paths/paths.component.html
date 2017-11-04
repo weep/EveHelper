@@ -8,10 +8,10 @@
         </div>
         <div class="col s8">
             <div *ngIf="selectedPath">
-                {{selectedPath | json}}
-                <div *ngFor="let key of selectedPath">
-                    <h4>{{key}}</h4>
-                    {{selectedPath[key] | json}}
+                <h4>{{selectedPathName}}</h4>
+                <div #exp *ngFor="let key of selectedKeys">
+                    <h5 (click)="exp.expanded = !exp.expanded">{{key}}</h5>
+                    <pre *ngIf="exp.expanded">{{selectedPath[key] | json}}</pre>
                 </div>
             </div>
         </div>

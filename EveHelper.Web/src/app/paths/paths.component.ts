@@ -9,7 +9,9 @@ import { EveapiService } from '../service/eveapi.service';
 export class PathsComponent implements OnInit {
   private paths: any[];
   private pathsRaw: any[];
+  private selectedPathName: string;
   private selectedPath: any;
+  private selectedKeys: string[];
 
   constructor(private eveapi: EveapiService) { }
 
@@ -26,12 +28,10 @@ export class PathsComponent implements OnInit {
   }
 
   select(path: any) {
-    let pathObject = this.pathsRaw[path];
-    let keys = Object.keys(pathObject);
-    this.selectedPath = pathObject;
-    this.selectedPath["keys"] = keys;
-
-    console.log(this.selectedPath);
+    this.selectedPathName = path;
+    this.selectedPath = this.pathsRaw[path];
+    this.selectedKeys = Object.keys(this.selectedPath);
+    console.log(this.selectedKeys, this.selectedPath);
   }
 
 }

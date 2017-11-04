@@ -5,3 +5,7 @@ table.compact tr td {
     border-radius: 0;
     color: black;
 }
+
+pre {
+    white-space: pre-wrap;
+}
