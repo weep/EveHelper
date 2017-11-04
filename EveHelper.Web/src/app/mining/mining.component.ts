@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mining.component.css']
 })
 export class MiningComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit() {
