@@ -3,11 +3,11 @@
     <div class="nav-wrapper container">
         <a routerLink="/" routerLinkActive="active" class="brand-logo" *ngIf="authService.characterSelected">{{authService.character.CharacterName}}</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down" *ngIf="authService.characterSelected">
-            <li><a routerLink="/paths" routerLinkActive="active">paths</a></li>
-            <li><a routerLink="/mining" routerLinkActive="active">mining</a></li>
-            <li><a routerLink="/assets" routerLinkActive="active">Assets</a></li>
-            <li><a routerLink="/wallet" routerLinkActive="active">Wallet</a></li>
-            <li><a routerLink="/login" routerLinkActive="active">Charaters</a></li>
+            <li routerLinkActive="active"><a routerLink="/paths">paths</a></li>
+            <li routerLinkActive="active"><a routerLink="/mining">mining</a></li>
+            <li routerLinkActive="active"><a routerLink="/assets">Assets</a></li>
+            <li routerLinkActive="active"><a routerLink="/wallet">Wallet</a></li>
+            <li routerLinkActive="active"><a routerLink="/login">Charaters</a></li>
         </ul>
     </div>
 </nav>
