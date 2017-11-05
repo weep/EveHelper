@@ -26,7 +26,7 @@ namespace EveHelper.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]CharacterModel characterModel)
         {
-            var character = Get(characterModel.Id);
+            var character = Get(characterModel.Id).Result;
             if (character != null)
                 return Ok();
             await _characterRepository.AddCharacter(characterModel);
