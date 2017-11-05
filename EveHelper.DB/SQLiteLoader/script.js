@@ -2,7 +2,7 @@ const SqliteToJson = require('sqlite-to-json');
 const sqlite3 = require('sqlite3');
 var fs = require('fs');
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://eve:pw@localhost/evehelper_db";
+var url = "mongodb://eve:pw@localhost/evehelper";
 
 const exporter = new SqliteToJson({
     client: new sqlite3.Database('./sqlite-latest.sqlite')
@@ -20,12 +20,13 @@ function ProcessPart(index, tables) {
     process.stdout.write(table + ": " + index + "/" + tables.length + "\r");
     var filePath = './data/' + table + '.json';
 
-    exporter.save(table, filePath, function(err) {
+    exporter.save(table, filePath, function (err) {
         if (err) {
             console.log("Error", err);
         }
         process.stdout.clearLine();
         console.timeEnd(table);
+
         MongoImport(filePath, table);
         ProcessPart(index + 1, tables);
     });
