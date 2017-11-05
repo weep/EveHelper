@@ -17,13 +17,15 @@ function ProcessPart(index, tables) {
     var table = tables[index];
     if (!table) return;
 
-    process.stdout.write("Parsing table " + index + "/" + tables.length + "\t" + table + "\r");
+    console.time(table);
+    process.stdout.write(table + ": " + index + "/" + tables.length + "\r");
 
     exporter.save(table, './data/' + table + '.json', function(err) {
         if (err) {
             console.log("Error", err);
         }
         process.stdout.clearLine();
+        console.timeEnd(table);
         ProcessPart(index + 1, tables);
     });
 }
