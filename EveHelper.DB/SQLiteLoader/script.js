@@ -6,30 +6,24 @@ const exporter = new SqliteToJson({
 
 
 exporter.tables(function(err, tables) {
-    var parts = [];
-    while (tables.length > 0)
-        parts.push(tables.splice(0, 3));
+    // var parts = [];
+    // while (tables.length > 0)
+    //     parts.push(tables.splice(0, 1));
 
-    ProcessPart(0, parts);
+    ProcessPart(0, tables);
 });
 
-function ProcessPart(index, parts) {
-    var part = parts[index];
-    if (!part) return;
+function ProcessPart(index, tables) {
+    var table = tables[index];
+    if (!table) return;
 
-    process.stdout.write("Parsing part " + index + "/" + parts.length + "\t" + part.toString() + "\r");
+    process.stdout.write("Parsing table " + index + "/" + tables.length + "\t" + table + "\r");
 
-    var partCount = part.length;
-    for (table of part) {
-        exporter.save(table, './data/' + table + '.json', function(err) {
-            if (err) {
-                console.log("Error", err);
-            }
-            if (--partCount == 0) {
-
-                process.stdout.clearLine();
-                ProcessPart(index + 1, parts);
-            }
-        });
-    }
+    exporter.save(table, './data/' + table + '.json', function(err) {
+        if (err) {
+            console.log("Error", err);
+        }
+        process.stdout.clearLine();
+        ProcessPart(index + 1, tables);
+    });
 }
