@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EveHelper.Db.Models.fsd
+namespace EveHelper.DB.Models.fsd
 {
     public class Blueprint
     {

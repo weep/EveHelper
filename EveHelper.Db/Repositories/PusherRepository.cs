@@ -1,5 +1,5 @@
-﻿using EveHelper.Db.Context;
-using EveHelper.Db.Interfaces;
+﻿using EveHelper.DB.Context;
+using EveHelper.DB.Interfaces;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
@@ -13,7 +13,7 @@ using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Bson.IO;
 using System.Diagnostics;
 
-namespace EveHelper.Db.Repositories
+namespace EveHelper.DB.Repositories
 {
     public class PusherRepository : MongoContext, IPusherRepository
     {

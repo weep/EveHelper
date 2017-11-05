@@ -1,14 +1,14 @@
-﻿using EveHelper.Db.Interfaces;
+﻿using EveHelper.DB.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EveHelper.Db.Models;
+using EveHelper.DB.Models;
 using Microsoft.Extensions.Options;
-using EveHelper.Db.Context;
+using EveHelper.DB.Context;
 using MongoDB.Driver;
 
-namespace EveHelper.Db.Repositories
+namespace EveHelper.DB.Repositories
 {
     public class CharacterRepository : ICharacterRepository
     {

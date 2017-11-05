@@ -9,9 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Http;
-using EveHelper.Db.Interfaces;
-using EveHelper.Db.Repositories;
-using EveHelper.Db;
+using EveHelper.DB.Interfaces;
+using EveHelper.DB.Repositories;
+using EveHelper.DB;
 
 namespace EveHelper.API
 {

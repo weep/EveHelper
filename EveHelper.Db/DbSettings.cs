@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EveHelper.Db
+namespace EveHelper.DB
 {
     public class DbSettings
     {

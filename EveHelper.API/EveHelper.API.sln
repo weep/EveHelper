@@ -4,7 +4,7 @@ VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EveHelper.API", "EveHelper.API.csproj", "{C069CE8D-4821-46ED-81E3-A6711A177E68}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EveHelper.Db", "..\EveHelper.Db\EveHelper.Db.csproj", "{C524D072-8010-4BDE-9CEB-02F77275E6CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EveHelper.DB", "..\EveHelper.Db\EveHelper.DB.csproj", "{C524D072-8010-4BDE-9CEB-02F77275E6CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

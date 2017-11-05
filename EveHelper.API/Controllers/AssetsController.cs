@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 using YamlDotNet.Serialization;
 using Microsoft.Extensions.Caching.Memory;
 using YamlDotNet.Serialization.NamingConventions;
-using EveHelper.Db.Interfaces;
+using EveHelper.DB.Interfaces;
 
 namespace EveHelper.API.Controllers
 {
