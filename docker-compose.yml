@@ -7,7 +7,7 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: example
-            
+
   pga:
     image: chorss/docker-pgadmin4
     restart: always
@@ -17,7 +17,17 @@ services:
       - "5050:5050"
     environment:
     - VIRTUAL_HOST=pga.eh.local
-        
+
+  mssql:
+    image: microsoft/mssql-server-linux
+    restart: always
+    ports:
+      - "1433:1433"
+    environment:
+      - MSSQL_SA_PASSWORD=Ex4mpleP455w0rD!
+      - ACCEPT_EULA=Y
+      - MSSQL_PID=Express
+
   proxy:
     build:
       context: ./EveHelper.Proxy
