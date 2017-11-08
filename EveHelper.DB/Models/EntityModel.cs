@@ -50,7 +50,7 @@ namespace EveHelper.DB.Models
             }
             catch (Exception ex)
             {
-                Debug.Write($"Unable to open database {_connection}");
+                Debug.Write($"Unable to open database {_connection} - {ex.Message}");
             }
 
             string schemaSQL = $"SELECT schema_id FROM sys.schemas WHERE name LIKE '{Schema}'";
@@ -125,39 +125,5 @@ namespace EveHelper.DB.Models
         {
             return _connection.DeleteAll<TEntity>(transaction: _transaction);
         }
-
-        //public new int Count => _connection.QueryFirst<int>($"select count(*) from {Schema}.{Name}", transaction: _transaction);
-
-        //public new void Add(TEntity item)
-        //{
-        //var props = item.GetType().GetProperties().ToList();
-        //string properties = string.Join(",", props);
-        //string values = string.Join(",", props.Select(x => x.GetValue(item)).ToString());
-
-        //string sql = $@"
-        //insert into [{Schema}].[{Name}] ({properties}) values({values})
-        //";
-
-        //Debug.WriteLine(sql);
-        //_connection.Execute(sql, item, transaction: _transaction);
-        //}
-
-        //public new void Clear() => _connection.Execute($"delete from {Schema}.{Name}", transaction: _transaction);
-
-        //public new bool Contains(TEntity item) => _connection.Execute($"select top 1 id from {Schema}.{Name}", transaction: _transaction) != 1;
-
-        //public new bool Remove(TEntity item) => _connection.Execute($"delete from {Schema}.{Name}", transaction: _transaction) == 1;
-
-        //public new void AddRange(IEnumerable<TEntity> range)
-        //{
-        //foreach (TEntity entity in range)
-        //Add(entity);
-        //}
-
-        //public void RemoveRange(IEnumerable<TEntity> range)
-        //{
-        //foreach (TEntity entity in range)
-        //Remove(entity);
-        //}
     }
 }
