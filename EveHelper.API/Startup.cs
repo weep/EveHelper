@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using EveHelper.DB.Interfaces;
+using EveHelper.DB.Models.Market;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Http;
-using EveHelper.DB.Interfaces;
-using EveHelper.DB.Repositories;
-using EveHelper.DB;
+using System;
 using System.Data;
 using System.Data.SqlClient;
-using EveHelper.DB.Models.Market;
 
 namespace EveHelper.API
 {

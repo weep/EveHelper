@@ -1,8 +1,7 @@
 ﻿using Dapper.Contrib.Extensions;
 using EveHelper.DB.Interfaces;
-using System.ComponentModel;
-using System.Data;
 using Microsoft.Extensions.Caching.Memory;
+using System.Data;
 
 namespace EveHelper.DB.Models.Market
 {
