@@ -75,7 +75,7 @@ namespace EveHelper.DB.Models
 
         public TEntity Get(int id)
         {
-            return _connection.Get<TEntity>(id, transaction: _transaction); ;
+            return _connection.Get<TEntity>(id, transaction: _transaction);
         }
 
         public IEnumerable<TEntity> GetAll()
@@ -90,7 +90,7 @@ namespace EveHelper.DB.Models
 
         public long Insert(IEnumerable<TEntity> list)
         {
-            return _connection.Insert(list, transaction: _transaction); ;
+            return _connection.Insert(list, transaction: _transaction);
         }
 
         public bool Update(TEntity obj)
