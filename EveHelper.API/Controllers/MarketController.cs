@@ -38,8 +38,9 @@ namespace EveHelper.API.Controllers
 
             using (var httpClient = new HttpClient())
             {
+                var authHeader = Request.Headers["Authorization"][0].Split(" ")[1];
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "9RHTOUqvZvJc372jxFFlN7f7coQdZOvGcEJ6TxTwVJa_CaVLV11IJy5XPKdPDVEbITIUnT3jYu3fxW7JSHqWHA2");
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authHeader);
 
                 var response = await httpClient.GetAsync("https://esi.tech.ccp.is/latest/markets/prices/");
                 var responseString = await response.Content.ReadAsStringAsync();

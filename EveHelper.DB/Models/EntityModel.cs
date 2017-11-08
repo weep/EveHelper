@@ -32,10 +32,6 @@ namespace EveHelper.DB.Models
         {
             Name = GetType().Name;
 
-            string cacheKey = $"Table_{Name}_cached";
-            if (_cache.TryGetValue(cacheKey, out bool isCached) == false)
-                return;
-
             try
             {
                 _connection.Open();
@@ -46,6 +42,10 @@ namespace EveHelper.DB.Models
             {
                 Debug.Write($"Unable to open database {_connection} - {ex.Message}");
             }
+
+            string cacheKey = $"Table_{Name}_cached";
+            if (_cache.TryGetValue(cacheKey, out bool isCached))
+                return;
 
             string schemaSQL = $"SELECT schema_id FROM sys.schemas WHERE name LIKE '{Schema}'";
             int schemaId = _connection.QuerySingle<int>(schemaSQL, transaction: _transaction);
