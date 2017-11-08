@@ -17,12 +17,10 @@ namespace EveHelper.API.Controllers
     public class AssetsController : Controller
     {
         IMemoryCache _memoryCache;
-        IPusherRepository _repo;
 
-        public AssetsController(IMemoryCache memoryCache, IPusherRepository repo)
+        public AssetsController(IMemoryCache memoryCache)
         {
             _memoryCache = memoryCache;
-            _repo = repo;
         }
 
         [HttpGet("{*path}")]
@@ -106,7 +104,6 @@ namespace EveHelper.API.Controllers
             }, async file =>
             {
                 var ret = await Helpers.YamlToJson(file);
-                await _repo.InsertManyAsync(ret.name, ret.json);
             });
 
             sw.Stop();

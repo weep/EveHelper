@@ -12,6 +12,9 @@ using Microsoft.AspNetCore.Http;
 using EveHelper.DB.Interfaces;
 using EveHelper.DB.Repositories;
 using EveHelper.DB;
+using System.Data;
+using System.Data.SqlClient;
+using EveHelper.DB.Models.Market;
 
 namespace EveHelper.API
 {
@@ -29,14 +32,8 @@ namespace EveHelper.API
         {
             services.AddMemoryCache();
 
-            services.Configure<DbSettings>(options =>
-            {
-                options.ConnectionString = Configuration.GetSection("MongoConnection:ConnectionString").Value;
-                options.Database = Configuration.GetSection("MongoConnection:Database").Value;
-            });
-
-            services.AddTransient<ICharacterRepository, CharacterRepository>();
-            services.AddTransient<IPusherRepository, PusherRepository>();
+            services.AddTransient<IDbConnection>(prov => new SqlConnection(Configuration.GetSection("mssql:ConnectionString").Value));
+            services.AddTransient<IEntityModel<MarketPriceModel>, MarketPrice>();
 
             services.AddCors(o => o.AddPolicy("EveHelperPolicy", builder =>
             {
@@ -62,7 +59,7 @@ namespace EveHelper.API
                 Host = "esi.tech.ccp.is",
                 Port = "443"
             }));
-            
+
             app.MapWhen(IsOathPath, builder => builder.RunProxy(new ProxyOptions()
             {
                 Scheme = "https",

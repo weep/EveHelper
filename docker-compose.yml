@@ -1,23 +1,5 @@
 version: '3'
 services:
-  pg:
-    build:
-      context: ./EveHelper.DBImport
-      dockerfile: Dockerfile
-    restart: always
-    environment:
-      POSTGRES_PASSWORD: example
-
-  pga:
-    image: chorss/docker-pgadmin4
-    restart: always
-    depends_on:
-      - pg
-    ports:
-      - "5050:5050"
-    environment:
-    - VIRTUAL_HOST=pga.eh.local
-
   mssql:
     image: microsoft/mssql-server-linux
     restart: always
@@ -28,16 +10,16 @@ services:
       - ACCEPT_EULA=Y
       - MSSQL_PID=Express
 
-  proxy:
-    build:
-      context: ./EveHelper.Proxy
-      dockerfile: Dockerfile
-    ports:
-      - "80:80"
-    depends_on:
-      - pga
+  # proxy:
+  #   build:
+  #     context: ./EveHelper.Proxy
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "80:80"
+  #   depends_on:
+  #     - mssql
         
-  #web:
+  # web:
   #  build:
   #    context: ./EveHelper.Web
   #    dockerfile: Dockerfile

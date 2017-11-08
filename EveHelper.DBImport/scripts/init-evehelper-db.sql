@@ -1,5 +1,0 @@
-CREATE USER evehelper;
-CREATE DATABASE evehelper;
-GRANT ALL PRIVILEGES ON DATABASE evehelper TO evehelper;
-
-CREATE SCHEMA evesde;

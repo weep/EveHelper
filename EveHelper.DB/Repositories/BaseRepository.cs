@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EveHelper.DB.Models.fsd
+namespace EveHelper.DB.Repositories
 {
-    public interface ITypeID
+    public class BaseRepository
     {
-        int TypeID { get; set; }
+        
     }
 }

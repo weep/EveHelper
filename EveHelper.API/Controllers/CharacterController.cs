@@ -15,35 +15,35 @@ namespace EveHelper.API.Controllers
     [Route("api/character")]
     public class CharacterController : Controller
     {
-        private readonly ICharacterRepository _characterRepository;
+        //private readonly ICharacterRepository _characterRepository;
 
-        public CharacterController(ICharacterRepository characterRepository)
-        {
-            _characterRepository = characterRepository;
-        }
+        //public CharacterController(ICharacterRepository characterRepository)
+        //{
+        //    _characterRepository = characterRepository;
+        //}
 
-        // POST api/Character
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody]CharacterModel characterModel)
-        {
-            var character = Get(characterModel.Id).Result;
-            if (character != null)
-                return Ok();
-            await _characterRepository.AddCharacter(characterModel);
-            return await Task.FromResult(Created("", characterModel));
-        }
+        //// POST api/Character
+        //[HttpPost]
+        //public async Task<IActionResult> Post([FromBody]CharacterModel characterModel)
+        //{
+        //    var character = Get(characterModel.Id).Result;
+        //    if (character != null)
+        //        return Ok();
+        //    await _characterRepository.AddCharacter(characterModel);
+        //    return await Task.FromResult(Created("", characterModel));
+        //}
 
-        // GET api/Character/5
-        [HttpGet("{id}")]
-        public async Task<CharacterModel> Get(string id)
-        {
-            return await GetCharacterById(id);
-        }
+        //// GET api/Character/5
+        //[HttpGet("{id}")]
+        //public async Task<CharacterModel> Get(string id)
+        //{
+        //    return await GetCharacterById(id);
+        //}
 
-        private async Task<CharacterModel> GetCharacterById(string id)
-        {
-            var character = await _characterRepository.GetCharacter(id);
-            return character;
-        }
+        //private async Task<CharacterModel> GetCharacterById(string id)
+        //{
+        //    var character = await _characterRepository.GetCharacter(id);
+        //    return character;
+        //}
     }
 }

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EveHelper.DB.Interfaces
 {
-    public interface IPusherRepository
+    public interface IDbConnectionFactory
     {
-        Task InsertManyAsync(string collectionName, string json);
+        IDbConnection CreateConnection();
     }
 }
