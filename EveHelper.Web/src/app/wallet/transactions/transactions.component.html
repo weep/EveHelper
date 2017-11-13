@@ -40,7 +40,7 @@
     </thead>
 
     <tbody *ngIf="transactions">
-        <tr *ngFor="let trans of transactions" [ngClass]="{'buy': trans.is_buy}">
+        <tr *ngFor="let trans of transactions.slice().splice(pageIndex * pageCount, pageCount);" [ngClass]="{'buy': trans.is_buy}">
             <td>{{trans.type_id}}</td>
             <td>{{trans.unit_price | number:'.2-2'}}</td>
             <td>{{trans.quantity}}</td>
@@ -48,3 +48,7 @@
         </tr>
     </tbody>
 </table>
+<div>
+    <button class="btn" (click)="pageIndex=pageIndex-1">Prev</button>
+    <button class="btn" (click)="pageIndex=pageIndex+1">Next</button>
+</div>

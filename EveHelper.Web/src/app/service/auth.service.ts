@@ -71,20 +71,24 @@ export class AuthService {
 
   private refresh() {
     if (this.accessToken != null) {
-      console.log("Refreshing token...");
-
-      this.lastRefresh = new Date();
-      this.nextRefresh = new Date();
-      this.nextRefresh.setMinutes(this.lastRefresh.getMinutes() + 10);
-
-      return this.http.post<AccessToken>("http://localhost:4201/api/token", {
-        "refreshToken": this.refreshToken,
-      }).map(token => {
-        this._character.Token = token;
-        this.characterLoading = false;
-        return token
-      }).subscribe();
+      this.forceRefresh();
     }
+  }
+
+  public forceRefresh(){
+    console.log("Refreshing token...");
+
+    this.lastRefresh = new Date();
+    this.nextRefresh = new Date();
+    this.nextRefresh.setMinutes(this.lastRefresh.getMinutes() + 10);
+
+    return this.http.post<AccessToken>("http://localhost:4201/api/token", {
+      "refreshToken": this.refreshToken,
+    }).map(token => {
+      this._character.Token = token;
+      this.characterLoading = false;
+      return token
+    }).subscribe();
   }
 
   token(authCode: string): Observable<AccessToken> {

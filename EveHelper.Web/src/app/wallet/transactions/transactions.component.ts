@@ -13,6 +13,10 @@ export class TransactionsComponent implements OnInit {
   private transactions: Transaction[];
   private trend: number;
   private stats;
+
+  private pageIndex = 0;
+  private pageCount = 20;
+
   constructor(private eveapi: EveapiService) { }
 
   ngOnInit() {

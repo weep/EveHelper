@@ -14,4 +14,19 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col s6">
+            <h5>Have</h5>
+            <textarea rows="5" class="materialize-textarea" #has [ngModel]="materialsHaveString"></textarea>
+            <button class="btn" (click)="svartMagi(has.value, need.value, times.value)">Refresh</button>
+        </div>
+        <div class="col s6">
+            <h5>Need</h5>
+            <textarea rows="20" cols="50" class="materialize-textarea" #need [ngModel]="materialsNeedString"></textarea> Times: <input type="number" #times [ngModel]="materials.times">
+        </div>
+        <div>
+            <textarea class="materialize-textarea diffresult" [ngModel]="materials.diffString"></textarea>
+        </div>
+    </div>
+
 </div>
