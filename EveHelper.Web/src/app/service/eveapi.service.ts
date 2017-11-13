@@ -26,7 +26,6 @@ export class EveapiService {
 
   get<T>(path: string): Observable<T> {
     var path = "http://localhost:4201/latest" + (path[0] === "/" ? "" : "/") + path;
-    console.log(path);
     return this.http.get<T>(path, {
       headers: new HttpHeaders({
         "Authorization": "Bearer " + this.authService.accessToken,
