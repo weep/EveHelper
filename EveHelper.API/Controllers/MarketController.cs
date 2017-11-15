@@ -3,6 +3,7 @@ using EveHelper.DB.Models.Market;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -15,11 +16,13 @@ namespace EveHelper.API.Controllers
     {
         readonly IEntityModel<MarketPriceModel> _marketPrices;
         readonly IEntityModel<MarketOrderModel> _marketOrders;
+        readonly IEntityModel<MarketHistoryModel> _marketHistory;
 
-        public MarketController(IEntityModel<MarketPriceModel> marketPrices, IEntityModel<MarketOrderModel> marketOrders)
+        public MarketController(IEntityModel<MarketPriceModel> marketPrices, IEntityModel<MarketOrderModel> marketOrders, IEntityModel<MarketHistoryModel> marketHistory)
         {
             _marketPrices = marketPrices;
             _marketOrders = marketOrders;
+            _marketHistory = marketHistory;
         }
 
         [HttpGet("prices")]
@@ -78,6 +81,40 @@ namespace EveHelper.API.Controllers
 
                 _marketOrders.DeleteAll();
                 _marketOrders.Insert(ret);
+            }
+            return Json(ret);
+        }
+
+        [HttpPost("history/{regionId}/{typeId}")]
+        public async Task<IActionResult> UpdateHistoryOrders(string regionId, string typeId)
+        {
+            IEnumerable<MarketHistoryModel> ret = null;
+
+            using (var httpClient = new HttpClient())
+            {
+                var authHeader = Request.Headers["Authorization"][0].Split(" ")[1];
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authHeader);
+
+                var url = string.Format("https://esi.tech.ccp.is/latest/markets/{0}/history?type_id={1}", regionId, typeId);
+                var response = await httpClient.GetAsync(url);
+                var responseString = await response.Content.ReadAsStringAsync();
+
+                ret = JsonConvert.DeserializeObject<IEnumerable<MarketHistoryModel>>(responseString)
+                    .Select(x => new MarketHistoryModel
+                    {
+                        average = x.average,
+                        date = x.date,
+                        highest = x.highest,
+                        lowest = x.lowest,
+                        order_count = x.order_count,
+                        region_id = long.Parse(regionId),
+                        type_id = long.Parse(typeId),
+                        volume = x.volume
+                    });
+
+                _marketHistory.Delete(ret);
+                _marketHistory.Insert(ret);
             }
             return Json(ret);
         }
