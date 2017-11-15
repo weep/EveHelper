@@ -28,6 +28,7 @@ namespace EveHelper.API
             services.AddTransient<IDbConnection>(prov => new SqlConnection(Configuration.GetSection("mssql:ConnectionString").Value));
             services.AddTransient<IEntityModel<MarketPriceModel>, MarketPrice>();
             services.AddTransient<IEntityModel<MarketOrderModel>, MarketOrder>();
+            services.AddTransient<IEntityModel<MarketHistoryModel>, MarketHistory>();
 
             services.AddCors(o => o.AddPolicy("EveHelperPolicy", builder =>
             {

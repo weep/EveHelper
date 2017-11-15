@@ -112,7 +112,7 @@ namespace EveHelper.DB.Models
 
         public bool Delete(IEnumerable<TEntity> list)
         {
-            return _connection.Update(list, transaction: _transaction);
+            return _connection.Delete(list, transaction: _transaction);
         }
 
         public bool DeleteAll()
