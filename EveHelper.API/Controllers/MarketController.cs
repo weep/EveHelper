@@ -100,22 +100,11 @@ namespace EveHelper.API.Controllers
                 var response = await httpClient.GetAsync(url);
                 var responseString = await response.Content.ReadAsStringAsync();
 
-                ret = JsonConvert.DeserializeObject<IEnumerable<MarketHistoryModel>>(responseString)
-                    .Select(x => new MarketHistoryModel
-                    {
-                        average = x.average,
-                        date = x.date,
-                        highest = x.highest,
-                        lowest = x.lowest,
-                        order_count = x.order_count,
-                        region_id = long.Parse(regionId),
-                        type_id = long.Parse(typeId),
-                        volume = x.volume
-                    });
+                ret = JsonConvert.DeserializeObject<IEnumerable<MarketHistoryModel>>(responseString);
 
-                _marketHistory.Delete(ret);
                 _marketHistory.Insert(ret);
             }
+
             return Json(ret);
         }
     }

@@ -1,10 +1,12 @@
-﻿using Dapper.Contrib.Extensions;
+﻿using Dapper;
+using Dapper.Contrib.Extensions;
 using EveHelper.DB.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
+using System.Linq;
 
 namespace EveHelper.DB.Models.Market
 {
@@ -33,6 +35,36 @@ CREATE TABLE [{Schema}].[{Name}]
 );";
             }
 
+        }
+
+        public override long Insert(IEnumerable<MarketHistoryModel> model)
+        {
+            var newEntries = new List<MarketHistoryModel>();
+
+            if (model.Any())
+            {
+                foreach (var item in model)
+                {
+                    var isHit = _connection
+                        .Query<MarketHistoryModel>("GetExistingMarketHistory",
+                            new
+                            {
+                                region_id = item.region_id,
+                                type_id = item.type_id,
+                                date = item.date
+                            }, commandType: CommandType.StoredProcedure, transaction: _transaction)
+                        .Any();
+
+                    if (!isHit)
+                        newEntries.Add(item);
+                }
+            }
+            else
+            {
+                newEntries = model.ToList();
+            }
+
+            return _connection.Insert(newEntries, transaction: _transaction);
         }
     }
 

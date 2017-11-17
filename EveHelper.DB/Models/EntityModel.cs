@@ -15,7 +15,7 @@ namespace EveHelper.DB.Models
         public string Schema { get; set; } = "dbo";
         public abstract string CreateTableSQL { get; }
 
-        IDbTransaction _transaction;
+        protected IDbTransaction _transaction;
         protected readonly IDbConnection _connection;
 
         IMemoryCache _cache;
@@ -88,15 +88,10 @@ namespace EveHelper.DB.Models
             return _connection.Insert(obj);
         }
 
-        public long Insert(IEnumerable<TEntity> list)
-        {
-            return _connection.Insert(list, transaction: _transaction);
-        }
+        public abstract long Insert(IEnumerable<TEntity> list);
 
         public bool Update(TEntity obj)
         {
-            _cache.Remove(obj);
-
             return _connection.Update(obj, transaction: _transaction);
         }
 

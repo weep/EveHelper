@@ -1,10 +1,12 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2006
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EveHelper.API", "EveHelper.API.csproj", "{C069CE8D-4821-46ED-81E3-A6711A177E68}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EveHelper.DB", "..\EveHelper.DB\EveHelper.DB.csproj", "{39CB75DA-3876-421D-8982-12DB9E307C49}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "EveHelper.Database", "..\EveHelper.Database\EveHelper.Database.sqlproj", "{3AA05498-894B-498A-809E-C6C68FF02A53}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +42,24 @@ Global
 		{39CB75DA-3876-421D-8982-12DB9E307C49}.Release|x64.Build.0 = Release|Any CPU
 		{39CB75DA-3876-421D-8982-12DB9E307C49}.Release|x86.ActiveCfg = Release|Any CPU
 		{39CB75DA-3876-421D-8982-12DB9E307C49}.Release|x86.Build.0 = Release|Any CPU
+		{3AA05498-894B-498A-809E-C6C68FF02A53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AA05498-894B-498A-809E-C6C68FF02A53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AA05498-894B-498A-809E-C6C68FF02A53}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{3AA05498-894B-498A-809E-C6C68FF02A53}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3AA05498-894B-498A-809E-C6C68FF02A53}.Debug|x64.Build.0 = Debug|Any CPU
+		{3AA05498-894B-498A-809E-C6C68FF02A53}.Debug|x64.Deploy.0 = Debug|Any CPU
+		{3AA05498-894B-498A-809E-C6C68FF02A53}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3AA05498-894B-498A-809E-C6C68FF02A53}.Debug|x86.Build.0 = Debug|Any CPU
+		{3AA05498-894B-498A-809E-C6C68FF02A53}.Debug|x86.Deploy.0 = Debug|Any CPU
+		{3AA05498-894B-498A-809E-C6C68FF02A53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AA05498-894B-498A-809E-C6C68FF02A53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AA05498-894B-498A-809E-C6C68FF02A53}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{3AA05498-894B-498A-809E-C6C68FF02A53}.Release|x64.ActiveCfg = Release|Any CPU
+		{3AA05498-894B-498A-809E-C6C68FF02A53}.Release|x64.Build.0 = Release|Any CPU
+		{3AA05498-894B-498A-809E-C6C68FF02A53}.Release|x64.Deploy.0 = Release|Any CPU
+		{3AA05498-894B-498A-809E-C6C68FF02A53}.Release|x86.ActiveCfg = Release|Any CPU
+		{3AA05498-894B-498A-809E-C6C68FF02A53}.Release|x86.Build.0 = Release|Any CPU
+		{3AA05498-894B-498A-809E-C6C68FF02A53}.Release|x86.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

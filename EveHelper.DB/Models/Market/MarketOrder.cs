@@ -3,6 +3,7 @@ using EveHelper.DB.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Data;
+using System.Collections.Generic;
 
 namespace EveHelper.DB.Models.Market
 {
@@ -33,6 +34,11 @@ CREATE TABLE [{Schema}].[{Name}]
 );";
             }
 
+        }
+
+        public override long Insert(IEnumerable<MarketOrderModel> list)
+        {
+            return _connection.Insert(list, transaction: _transaction);
         }
     }
 
