@@ -1,5 +1,5 @@
-﻿using EveHelper.DB.Interfaces;
-using EveHelper.DB.Models.Market;
+﻿using EveHelper.ORM.Interfaces;
+using EveHelper.ORM.Models.Market;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -25,6 +25,11 @@ namespace EveHelper.API.Controllers
             _marketHistory = marketHistory;
         }
 
+        /// <summary>
+        /// Get prices for a specific item
+        /// </summary>
+        /// <param name="id">Item, type_id in the database</param>
+        /// <returns></returns>
         [HttpGet("prices")]
         public async Task<IActionResult> GetPrices(int id)
         {
@@ -36,6 +41,10 @@ namespace EveHelper.API.Controllers
             return await Task.FromResult(Json(resp));
         }
 
+        /// <summary>
+        /// Updates prices from the market
+        /// </summary>
+        /// <returns></returns>
         [HttpPost("prices")]
         public async Task<IActionResult> UpdatePrices()
         {
@@ -85,6 +94,12 @@ namespace EveHelper.API.Controllers
             return Json(ret);
         }
 
+        /// <summary>
+        /// Updates History orders for a specific region and typeid
+        /// </summary>
+        /// <param name="regionId">RegionId to update for, The Forge is: 10000002</param>
+        /// <param name="typeId">TypeId (item) to update for</param>
+        /// <returns></returns>
         [HttpPost("history/{regionId}/{typeId}")]
         public async Task<IActionResult> UpdateHistoryOrders(string regionId, string typeId)
         {
@@ -113,10 +128,21 @@ namespace EveHelper.API.Controllers
                         volume = x.volume
                     });
 
-                _marketHistory.Delete(ret);
                 _marketHistory.Insert(ret);
             }
+
             return Json(ret);
+        }
+
+        [HttpGet("history/{regionId}/{typeId}")]
+        public async Task<IActionResult> GetHistoryOrders(string regionId, string typeId)
+        {
+            var resp = _marketHistory.Get(id);
+
+            if (resp == null)
+                return NotFound();
+
+            return await Task.FromResult(Json(resp));
         }
     }
 }

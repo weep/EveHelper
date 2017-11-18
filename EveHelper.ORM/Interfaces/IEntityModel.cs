@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace EveHelper.DB.Interfaces
+namespace EveHelper.ORM.Interfaces
 {
     public interface IEntityModel<TEntity>
     {

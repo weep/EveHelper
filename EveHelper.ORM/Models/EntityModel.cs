@@ -1,13 +1,13 @@
 ﻿using Dapper;
 using Dapper.Contrib.Extensions;
-using EveHelper.DB.Interfaces;
+using EveHelper.ORM.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 
-namespace EveHelper.DB.Models
+namespace EveHelper.ORM.Models
 {
     public abstract class EntityModel<TEntity> : IEntityModel<TEntity>, IDisposable where TEntity : class
     {
@@ -15,7 +15,7 @@ namespace EveHelper.DB.Models
         public string Schema { get; set; } = "dbo";
         public abstract string CreateTableSQL { get; }
 
-        IDbTransaction _transaction;
+        protected IDbTransaction _transaction;
         protected readonly IDbConnection _connection;
 
         IMemoryCache _cache;
@@ -83,20 +83,12 @@ namespace EveHelper.DB.Models
             return _connection.GetAll<TEntity>(transaction: _transaction);
         }
 
-        public long Insert(TEntity obj)
-        {
-            return _connection.Insert(obj);
-        }
+        public abstract long Insert(TEntity obj);
 
-        public long Insert(IEnumerable<TEntity> list)
-        {
-            return _connection.Insert(list, transaction: _transaction);
-        }
+        public abstract long Insert(IEnumerable<TEntity> list);
 
         public bool Update(TEntity obj)
         {
-            _cache.Remove(obj);
-
             return _connection.Update(obj, transaction: _transaction);
         }
 
