@@ -1,13 +1,13 @@
 ﻿using Dapper;
 using Dapper.Contrib.Extensions;
-using EveHelper.DB.Interfaces;
+using EveHelper.ORM.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 
-namespace EveHelper.DB.Models
+namespace EveHelper.ORM.Models
 {
     public abstract class EntityModel<TEntity> : IEntityModel<TEntity>, IDisposable where TEntity : class
     {
@@ -83,10 +83,7 @@ namespace EveHelper.DB.Models
             return _connection.GetAll<TEntity>(transaction: _transaction);
         }
 
-        public long Insert(TEntity obj)
-        {
-            return _connection.Insert(obj);
-        }
+        public abstract long Insert(TEntity obj);
 
         public abstract long Insert(IEnumerable<TEntity> list);
 

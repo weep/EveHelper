@@ -1,5 +1,5 @@
-﻿using EveHelper.DB.Interfaces;
-using EveHelper.DB.Models.Market;
+﻿using EveHelper.ORM.Interfaces;
+using EveHelper.ORM.Models.Market;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;

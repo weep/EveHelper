@@ -1,6 +1,6 @@
 ﻿using Dapper;
 using Dapper.Contrib.Extensions;
-using EveHelper.DB.Interfaces;
+using EveHelper.ORM.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Data;
 using System.Text;
 using System.Linq;
 
-namespace EveHelper.DB.Models.Market
+namespace EveHelper.ORM.Models.Market
 {
     public class MarketHistory : EntityModel<MarketHistoryModel>, IEntityModel<MarketHistoryModel>
     {
@@ -39,32 +39,39 @@ CREATE TABLE [{Schema}].[{Name}]
 
         public override long Insert(IEnumerable<MarketHistoryModel> model)
         {
-            var newEntries = new List<MarketHistoryModel>();
+            long count = 0;
 
-            if (model.Any())
+            foreach (var item in model)
             {
-                foreach (var item in model)
+                UpdateOrAddMarketHistory(item);
+                count++;
+            }
+
+            return count;
+        }
+
+        public override long Insert(MarketHistoryModel obj)
+        {
+            UpdateOrAddMarketHistory(obj);
+            return 1;
+        }
+
+        private void UpdateOrAddMarketHistory(MarketHistoryModel item)
+        {
+            _connection
+            .Query<MarketHistoryModel>("UpdateOrAddMarketHistory",
+                new MarketHistoryModel
                 {
-                    var isHit = _connection
-                        .Query<MarketHistoryModel>("GetExistingMarketHistory",
-                            new
-                            {
-                                region_id = item.region_id,
-                                type_id = item.type_id,
-                                date = item.date
-                            }, commandType: CommandType.StoredProcedure, transaction: _transaction)
-                        .Any();
-
-                    if (!isHit)
-                        newEntries.Add(item);
-                }
-            }
-            else
-            {
-                newEntries = model.ToList();
-            }
-
-            return _connection.Insert(newEntries, transaction: _transaction);
+                    region_id = item.region_id,
+                    type_id = item.type_id,
+                    date = item.date,
+                    average = item.average,
+                    highest = item.highest,
+                    lowest = item.lowest,
+                    order_count = item.order_count,
+                    volume = item.volume
+                },
+            commandType: CommandType.StoredProcedure, transaction: _transaction);
         }
     }
 

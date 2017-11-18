@@ -1,10 +1,10 @@
 ﻿using Dapper.Contrib.Extensions;
-using EveHelper.DB.Interfaces;
+using EveHelper.ORM.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 using System.Data;
 using System.Collections.Generic;
 
-namespace EveHelper.DB.Models.Market
+namespace EveHelper.ORM.Models.Market
 {
     public class MarketPrice : EntityModel<MarketPriceModel>, IEntityModel<MarketPriceModel>
     {
@@ -30,6 +30,11 @@ CREATE TABLE [{Schema}].[{Name}]
         public override long Insert(IEnumerable<MarketPriceModel> list)
         {
             return _connection.Insert(list, transaction: _transaction);
+        }
+
+        public override long Insert(MarketPriceModel obj)
+        {
+            return _connection.Insert(obj);
         }
     }
 
