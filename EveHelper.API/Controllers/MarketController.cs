@@ -19,12 +19,14 @@ namespace EveHelper.API.Controllers
         readonly IEntityModel<MarketPriceModel> _marketPrices;
         readonly IEntityModel<MarketOrderModel> _marketOrders;
         readonly IEntityModel<MarketHistoryModel> _marketHistory;
+        readonly IEntityModel<CharacterOrdersModel> _marketCharacterOrders;
 
-        public MarketController(IEntityModel<MarketPriceModel> marketPrices, IEntityModel<MarketOrderModel> marketOrders, IEntityModel<MarketHistoryModel> marketHistory)
+        public MarketController(IEntityModel<MarketPriceModel> marketPrices, IEntityModel<MarketOrderModel> marketOrders, IEntityModel<MarketHistoryModel> marketHistory, IEntityModel<CharacterOrdersModel> marketCharacterOrders)
         {
             _marketPrices = marketPrices;
             _marketOrders = marketOrders;
             _marketHistory = marketHistory;
+            _marketCharacterOrders = marketCharacterOrders;
         }
 
         /// <summary>
@@ -94,27 +96,53 @@ namespace EveHelper.API.Controllers
 
             var data = await HttpClientHelper.GetObjects<MarketHistoryModel>(uri, authHeader);
 
-            var filteredData = data.Select(x => new MarketHistoryModel
-                {
-                    average = x.average,
-                    date = x.date,
-                    highest = x.highest,
-                    lowest = x.lowest,
-                    order_count = x.order_count,
-                    region_id = long.Parse(regionId),
-                    type_id = long.Parse(typeId),
-                    volume = x.volume
-                });
+            data.ForEach(x => { x.region_id = long.Parse(regionId); x.type_id = long.Parse(typeId); });
 
-            _marketHistory.Insert(filteredData);
+            _marketHistory.Insert(data);
 
-            return Json(filteredData);
+            return Json(data);
         }
 
         [HttpGet("history/{regionId}/{typeId}")]
         public async Task<IActionResult> GetHistoryOrders(string regionId, string typeId)
         {
             var resp = _marketHistory.GetMultiple(new { regionId, typeId });
+
+            if (resp == null)
+                return NotFound();
+
+            return await Task.FromResult(Json(resp));
+        }
+
+        /// <summary>
+        /// Updates a specific character orders
+        /// </summary>
+        /// <param name="characterId">CharacterId to update orders for</param>
+        /// <returns></returns>
+        [HttpPost("character/{characterId}")]
+        public async Task<IActionResult> UpdateCharacterOrders(string characterId)
+        {
+            var authHeader = Request.Headers["Authorization"][0].Split(" ")[1];
+            var uri = new Uri($"https://esi.tech.ccp.is/latest/characters/{characterId}/orders");
+
+            var data = await HttpClientHelper.GetObjects<CharacterOrdersModel>(uri, authHeader);
+
+            data.ForEach(x => x.character_id = long.Parse(characterId));
+
+            _marketCharacterOrders.Insert(data);
+
+            return Json(data);
+        }
+
+        /// <summary>
+        /// Gets a specific character orders
+        /// </summary>
+        /// <param name="characterId">CharacterId to get orders for</param>
+        /// <returns></returns>
+        [HttpGet("character/{characterId}")]
+        public async Task<IActionResult> GetSpecificCharacterOrders(string characterId)
+        {
+            var resp = _marketCharacterOrders.GetMultiple(new { characterId });
 
             if (resp == null)
                 return NotFound();

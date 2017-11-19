@@ -29,6 +29,7 @@ namespace EveHelper.API
             services.AddTransient<IEntityModel<MarketPriceModel>, MarketPrice>();
             services.AddTransient<IEntityModel<MarketOrderModel>, MarketOrder>();
             services.AddTransient<IEntityModel<MarketHistoryModel>, MarketHistory>();
+            services.AddTransient<IEntityModel<CharacterOrdersModel>, CharacterOrders>();
 
             services.AddCors(o => o.AddPolicy("EveHelperPolicy", builder =>
             {

@@ -154,6 +154,7 @@
     <Build Include="dbo\Tables\agtAgentTypes.sql" />
     <Build Include="dbo\Tables\agtAgents.sql" />
     <Build Include="dbo\Stored Procedures\UpdateOrAddMarketHistory.sql" />
+    <Build Include="dbo\Tables\CharacterOrders.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
