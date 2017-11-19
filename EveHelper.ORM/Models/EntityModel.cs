@@ -78,6 +78,8 @@ namespace EveHelper.ORM.Models
             return _connection.Get<TEntity>(id, transaction: _transaction);
         }
 
+        public abstract IEnumerable<TEntity> GetMultiple(object filter);
+
         public IEnumerable<TEntity> GetAll()
         {
             return _connection.GetAll<TEntity>(transaction: _transaction);

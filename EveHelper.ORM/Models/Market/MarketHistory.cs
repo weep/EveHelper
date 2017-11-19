@@ -37,6 +37,18 @@ CREATE TABLE [{Schema}].[{Name}]
 
         }
 
+        public override IEnumerable<MarketHistoryModel> GetMultiple(object filter)
+        {
+            var data = _connection
+                .Query<MarketHistoryModel>(
+                    $"select * from [{Schema}].[{Name}] where region_id = @regionId and type_id = @typeId",
+                    filter,
+                    commandType: CommandType.Text, transaction: _transaction)
+                .ToList();
+
+            return data;
+        }
+
         public override long Insert(IEnumerable<MarketHistoryModel> model)
         {
             long count = 0;

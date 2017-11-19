@@ -36,6 +36,11 @@ CREATE TABLE [{Schema}].[{Name}]
 
         }
 
+        public override IEnumerable<MarketOrderModel> GetMultiple(object filter)
+        {
+            throw new NotImplementedException();
+        }
+
         public override long Insert(IEnumerable<MarketOrderModel> list)
         {
             return _connection.Insert(list, transaction: _transaction);

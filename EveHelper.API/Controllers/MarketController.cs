@@ -1,7 +1,9 @@
-﻿using EveHelper.ORM.Interfaces;
+﻿using EveHelper.API.GenericHelpers;
+using EveHelper.ORM.Interfaces;
 using EveHelper.ORM.Models.Market;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -48,23 +50,15 @@ namespace EveHelper.API.Controllers
         [HttpPost("prices")]
         public async Task<IActionResult> UpdatePrices()
         {
-            IEnumerable<MarketPriceModel> ret = null;
+            var authHeader = Request.Headers["Authorization"][0].Split(" ")[1];
+            var uri = new Uri($"https://esi.tech.ccp.is/latest/markets/prices/");
 
-            using (var httpClient = new HttpClient())
-            {
-                var authHeader = Request.Headers["Authorization"][0].Split(" ")[1];
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authHeader);
+            var data = await HttpClientHelper.GetObjects<MarketPriceModel>(uri, authHeader);
 
-                var response = await httpClient.GetAsync("https://esi.tech.ccp.is/latest/markets/prices/");
-                var responseString = await response.Content.ReadAsStringAsync();
+            _marketPrices.DeleteAll();
+            _marketPrices.Insert(data);
 
-                ret = JsonConvert.DeserializeObject<IEnumerable<MarketPriceModel>>(responseString);
-
-                _marketPrices.DeleteAll();
-                _marketPrices.Insert(ret);
-            }
-            return Json(ret);
+            return Json(data);
         }
 
         /// <summary>
@@ -75,23 +69,15 @@ namespace EveHelper.API.Controllers
         [HttpPost("orders/{regionId}")]
         public async Task<IActionResult> UpdateOrders(string regionId)
         {
-            IEnumerable<MarketOrderModel> ret = null;
+            var authHeader = Request.Headers["Authorization"][0].Split(" ")[1];
+            var uri = new Uri($"https://esi.tech.ccp.is/latest/markets/{regionId}/orders");
 
-            using (var httpClient = new HttpClient())
-            {
-                var authHeader = Request.Headers["Authorization"][0].Split(" ")[1];
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authHeader);
+            var data = await HttpClientHelper.GetObjects<MarketOrderModel>(uri, authHeader);
 
-                var response = await httpClient.GetAsync(string.Format("https://esi.tech.ccp.is/latest/markets/{0}/orders", regionId));
-                var responseString = await response.Content.ReadAsStringAsync();
+            _marketOrders.DeleteAll();
+            _marketOrders.Insert(data);
 
-                ret = JsonConvert.DeserializeObject<IEnumerable<MarketOrderModel>>(responseString);
-
-                _marketOrders.DeleteAll();
-                _marketOrders.Insert(ret);
-            }
-            return Json(ret);
+            return Json(data);
         }
 
         /// <summary>
@@ -103,41 +89,32 @@ namespace EveHelper.API.Controllers
         [HttpPost("history/{regionId}/{typeId}")]
         public async Task<IActionResult> UpdateHistoryOrders(string regionId, string typeId)
         {
-            IEnumerable<MarketHistoryModel> ret = null;
+            var authHeader = Request.Headers["Authorization"][0].Split(" ")[1];
+            var uri = new Uri($"https://esi.tech.ccp.is/latest/markets/{regionId}/history?type_id={typeId}");
 
-            using (var httpClient = new HttpClient())
-            {
-                var authHeader = Request.Headers["Authorization"][0].Split(" ")[1];
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authHeader);
+            var data = await HttpClientHelper.GetObjects<MarketHistoryModel>(uri, authHeader);
 
-                var url = string.Format("https://esi.tech.ccp.is/latest/markets/{0}/history?type_id={1}", regionId, typeId);
-                var response = await httpClient.GetAsync(url);
-                var responseString = await response.Content.ReadAsStringAsync();
+            var filteredData = data.Select(x => new MarketHistoryModel
+                {
+                    average = x.average,
+                    date = x.date,
+                    highest = x.highest,
+                    lowest = x.lowest,
+                    order_count = x.order_count,
+                    region_id = long.Parse(regionId),
+                    type_id = long.Parse(typeId),
+                    volume = x.volume
+                });
 
-                ret = JsonConvert.DeserializeObject<IEnumerable<MarketHistoryModel>>(responseString)
-                    .Select(x => new MarketHistoryModel
-                    {
-                        average = x.average,
-                        date = x.date,
-                        highest = x.highest,
-                        lowest = x.lowest,
-                        order_count = x.order_count,
-                        region_id = long.Parse(regionId),
-                        type_id = long.Parse(typeId),
-                        volume = x.volume
-                    });
+            _marketHistory.Insert(filteredData);
 
-                _marketHistory.Insert(ret);
-            }
-
-            return Json(ret);
+            return Json(filteredData);
         }
 
         [HttpGet("history/{regionId}/{typeId}")]
         public async Task<IActionResult> GetHistoryOrders(string regionId, string typeId)
         {
-            var resp = _marketHistory.Get(id);
+            var resp = _marketHistory.GetMultiple(new { regionId, typeId });
 
             if (resp == null)
                 return NotFound();

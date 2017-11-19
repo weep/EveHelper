@@ -5,6 +5,7 @@ namespace EveHelper.ORM.Interfaces
     public interface IEntityModel<TEntity>
     {
         TEntity Get(int id);
+        IEnumerable<TEntity> GetMultiple(object filter);
         IEnumerable<TEntity> GetAll();
         long Insert(TEntity obj);
         long Insert(IEnumerable<TEntity> list);
