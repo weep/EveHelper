@@ -1,8 +1,0 @@
-.walletmenu>div {
-    padding: 20px;
-}
-
-.walletmenu>div.active {
-    color: black;
-    background: #cccccc;
-}
