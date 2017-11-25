@@ -1,0 +1,23 @@
+﻿DEBUG 2017-11-25 08:44:37,535 [1    ] Abp.Modules.AbpModuleManager             - Loading Abp modules...
+DEBUG 2017-11-25 08:44:37,613 [1    ] Abp.Modules.AbpModuleManager             - Found 9 ABP modules in total.
+DEBUG 2017-11-25 08:44:37,694 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: EveHelper.Migrator.EveHelperMigratorModule, EveHelper.Migrator, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2017-11-25 08:44:37,697 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: EveHelper.EntityFrameworkCore.EveHelperEntityFrameworkModule, EveHelper.EntityFrameworkCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2017-11-25 08:44:37,697 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: EveHelper.EveHelperCoreModule, EveHelper.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2017-11-25 08:44:37,698 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Zero.AbpZeroCoreModule, Abp.ZeroCore, Version=3.2.4.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2017-11-25 08:44:37,698 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Zero.AbpZeroCommonModule, Abp.Zero.Common, Version=3.2.4.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2017-11-25 08:44:37,698 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AbpKernelModule, Abp, Version=3.2.4.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2017-11-25 08:44:37,698 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Zero.EntityFrameworkCore.AbpZeroCoreEntityFrameworkCoreModule, Abp.ZeroCore.EntityFrameworkCore, Version=3.2.4.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2017-11-25 08:44:37,699 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.EntityFrameworkCore.AbpEntityFrameworkCoreModule, Abp.EntityFrameworkCore, Version=3.2.4.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2017-11-25 08:44:37,699 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.EntityFramework.AbpEntityFrameworkCommonModule, Abp.EntityFramework.Common, Version=3.2.4.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2017-11-25 08:44:37,702 [1    ] Abp.Modules.AbpModuleManager             - 9 modules loaded.
+DEBUG 2017-11-25 08:44:37,975 [1    ] ameworkCore.AbpEntityFrameworkCoreModule - Registering DbContext: EveHelper.EntityFrameworkCore.EveHelperDbContext, EveHelper.EntityFrameworkCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2017-11-25 08:44:38,366 [1    ] Abp.Localization.LocalizationManager     - Initializing 3 localization sources.
+DEBUG 2017-11-25 08:44:38,375 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: Abp
+DEBUG 2017-11-25 08:44:38,379 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: AbpZero
+DEBUG 2017-11-25 08:44:38,381 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: EveHelper
+INFO  2017-11-25 08:44:38,532 [1    ] EveHelper.Migrator.Log                   - Host database: Server=localhost; Database=EveHelperDb; User Id=sa; Password=Ex4mpleP455w0rD!
+INFO  2017-11-25 08:44:38,533 [1    ] EveHelper.Migrator.Log                   - Continue to migration for this host database and all tenants..? (Y/N): 
+INFO  2017-11-25 08:44:47,008 [1    ] EveHelper.Migrator.Log                   - HOST database migration started...
+INFO  2017-11-25 08:44:48,589 [1    ] EveHelper.Migrator.Log                   - HOST database migration completed.
+INFO  2017-11-25 08:44:48,590 [1    ] EveHelper.Migrator.Log                   - --------------------------------------------------------
+INFO  2017-11-25 08:44:48,627 [1    ] EveHelper.Migrator.Log                   - All databases have been migrated.

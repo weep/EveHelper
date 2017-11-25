@@ -1,14 +1,14 @@
-import { AppPage } from './app.po';
+import { EvehelperTemplatePage } from './app.po';
 
-describe('eve-helper.web App', () => {
-  let page: AppPage;
+describe('abp-project-name-template App', function() {
+  let page: EvehelperTemplatePage;
 
   beforeEach(() => {
-    page = new AppPage();
+    page = new EvehelperTemplatePage();
   });
 
-  it('should display welcome message', () => {
+  it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
+    expect(page.getParagraphText()).toEqual('app works!');
   });
 });
